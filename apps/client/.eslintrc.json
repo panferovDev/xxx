@@ -1,0 +1,69 @@
+{
+  "extends": [
+    "plugin:@nx/react-typescript",
+    "next",
+    "next/core-web-vitals",
+    "../../.eslintrc.json"
+  ],
+  "ignorePatterns": ["!**/*", ".next/**/*"],
+  "overrides": [
+    {
+      "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
+      "parserOptions": {
+        "project": ["apps/client/tsconfig.json"]
+      },
+      "extends": [
+        "eslint:recommended",
+        "plugin:react/recommended",
+        "plugin:react-hooks/recommended",
+        "plugin:@typescript-eslint/recommended",
+        "plugin:@typescript-eslint/recommended-requiring-type-checking",
+        "airbnb",
+        "airbnb/hooks",
+        "airbnb-typescript"
+      ],
+      "plugins": ["react", "@typescript-eslint", "react-hooks"],
+      "rules": {
+        "@next/next/no-html-link-for-pages": ["error", "apps/client/pages"],
+        "@typescript-eslint/no-unused-vars": "warn",
+        "consistent-return": 0,
+        "@typescript-eslint/default-param-last": 0,
+        "import/prefer-default-export": 0,
+        "react-hooks/rules-of-hooks": "error",
+        "react-hooks/exhaustive-deps": "warn",
+        "@typescript-eslint/consistent-type-imports": [
+          "error",
+          { "prefer": "type-imports" }
+        ],
+        "@typescript-eslint/explicit-function-return-type": [
+          "error",
+          {
+            "allowExpressions": true,
+            "allowTypedFunctionExpressions": true,
+            "allowHigherOrderFunctions": true,
+            "allowDirectConstAssertionInArrowFunctions": true
+          }
+        ],
+        "@typescript-eslint/switch-exhaustiveness-check": "error",
+        "@typescript-eslint/consistent-type-definitions": ["warn", "type"],
+        "import/no-extraneous-dependencies": "off",
+        "no-console": "off",
+        "react/react-in-jsx-scope": "off"
+      }
+    },
+    {
+      "files": ["*.ts", "*.tsx"],
+      "rules": {}
+    },
+    {
+      "files": ["*.js", "*.jsx"],
+      "rules": {}
+    }
+  ],
+  "rules": {
+    "@next/next/no-html-link-for-pages": "off"
+  },
+  "env": {
+    "jest": true
+  }
+}

@@ -1,0 +1,9 @@
+{
+    "compilerOptions": {
+      "baseUrl": ".",
+      "paths": {
+        "@xxx/ui-components": ["libs/ui-components/src/index.ts"],
+        "@xxx/ui-components/*": ["libs/ui-components/src/*"]
+      }
+    }
+  }
