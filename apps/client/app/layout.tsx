@@ -1,5 +1,5 @@
 import { ThemeProvider } from '../components/themeProvider/theme-provider';
-import '../styles.css';
+import './global.css';
 
 export const metadata = {
   title: 'Welcome to client',
