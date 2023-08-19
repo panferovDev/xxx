@@ -1,15 +1,12 @@
 /** @type {import('tailwindcss').Config} */
+const { join } = require('path');
 const { fontFamily } = require('tailwindcss/defaultTheme');
 const { createGlobPatternsForDependencies } = require('@nx/react/tailwind');
-const { join } = require('path');
 
 module.exports = {
   darkMode: ['media'],
   content: [
-    join(
-      __dirname,
-      '{src,pages,components,app}/**/*!(*.stories|*.spec).{ts,tsx,html}'
-    ),
+    join(__dirname, '{src,pages,components,app}/**/*!(*.stories|*.spec).{ts,tsx,html}'),
     ...createGlobPatternsForDependencies(__dirname),
   ],
   theme: {
@@ -57,8 +54,8 @@ module.exports = {
         },
       },
       borderRadius: {
-        lg: `var(--radius)`,
-        md: `calc(var(--radius) - 2px)`,
+        lg: 'var(--radius)',
+        md: 'calc(var(--radius) - 2px)',
         sm: 'calc(var(--radius) - 4px)',
       },
       fontFamily: {
@@ -73,16 +70,26 @@ module.exports = {
           from: { height: 'var(--radix-accordion-content-height)' },
           to: { height: 0 },
         },
+        typing: {
+          '0%': {
+            width: '0%',
+            visibility: 'hidden',
+          },
+          '100%': {
+            width: '100%',
+          },
+        },
       },
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
+        typing: 'typing 6s steps(20) infinite alternate, blink .7s infinite',
       },
     },
     fontFamily: {
-      'sans': ['Roboto', 'Arial', 'sans-serif'],
+      sans: ['Roboto', 'Arial', 'sans-serif'],
       // ... остальные шрифты
-    }
+    },
   },
   plugins: [require('tailwindcss-animate')],
 };

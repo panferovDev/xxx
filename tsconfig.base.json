@@ -10,13 +10,15 @@
     "importHelpers": true,
     "target": "es2015",
     "module": "esnext",
-    "lib": ["es2020", "dom"],
+    "lib": ["es2020", "dom", "DOM.Iterable", "esnext"],
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@client/ui/*": ["apps/client/components/UI/*"],
+      "@xxx/types": ["libs/types/src/index.ts"],
       "@xxx/ui-components/*": ["libs/ui-components/src/lib/components/*"],
-      "@client/ui/*":["apps/client/components/UI/*"]
+      "@xxx/types/*": ["libs/types/src/lib/*"],
     }
   },
   "exclude": ["node_modules", "tmp"]
