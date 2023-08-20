@@ -2,6 +2,7 @@ import { Roboto } from 'next/font/google';
 import { ThemeProvider } from '../components/themeProvider/theme-provider';
 import './global.css';
 import { Providers } from '../components/Providers';
+import Header from '../components/UI/NavBar/Header';
 
 const roboto = Roboto({
   weight: '400',
@@ -19,7 +20,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }):
       <body className={`${roboto.className}`}>
         <Providers>
           <ThemeProvider attribute="class">
-            <div className="container">{children}</div>
+            <div className="container">
+              <Header />
+              {children}
+            </div>
           </ThemeProvider>
         </Providers>
       </body>
