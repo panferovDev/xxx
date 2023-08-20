@@ -11,18 +11,17 @@ import { CardTitle } from '@xxx/ui-components/Card';
 type Props = {
   submitHandler: (event: React.FormEvent<HTMLFormElement>) => void;
 };
-
-export default function index({ submitHandler }: Props): JSX.Element {
+function index({ submitHandler }: Props): JSX.Element {
   return (
     <form onSubmit={submitHandler} className="w-full">
       <CardTitle>Сгенерировать рассадку студентов</CardTitle>
       <FormItem className="mt-2">
         <Label htmlFor="list">Укажите количество мест</Label>
-        <Input id="seats" type="number" name="num" />
+        <Input id="seats" type="number" name="num" required />
       </FormItem>
       <FormItem className="mt-2">
         <Label htmlFor="list">Добавьте список</Label>
-        <Textarea id="list" style={{ resize: 'none' }} name="students" />
+        <Textarea id="list" style={{ resize: 'none' }} name="students" required />
       </FormItem>
       <div className="flex mt-4 justify-start">
         <Button type="submit">Submit</Button>
@@ -30,3 +29,4 @@ export default function index({ submitHandler }: Props): JSX.Element {
     </form>
   );
 }
+export default React.memo(index);
