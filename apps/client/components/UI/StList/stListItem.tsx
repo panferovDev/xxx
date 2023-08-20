@@ -14,7 +14,6 @@ const fadeIn = {
 };
 
 export default function StListItem({ student, index }: Props): JSX.Element {
-  console.log('student', student);
   return (
     <AnimatePresence>
       <motion.li
