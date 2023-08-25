@@ -1,0 +1,34 @@
+{
+  "name": "prism",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/prism/src",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/prism",
+        "main": "libs/prism/src/index.ts",
+        "tsConfig": "libs/prism/tsconfig.lib.json",
+        "assets": ["libs/prism/*.md"]
+      }
+    },
+    "migrate": {
+      "executor": "nx:run-commands",
+      "outputs": [],
+      "options": {
+        "command": "npx prisma migrate dev --name init",
+        "cwd": "libs/prism/src/lib"
+      }
+ },
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/prism/**/*.ts", "libs/prism/package.json"]
+      }
+    }
+  },
+  "tags": []
+}

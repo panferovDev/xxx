@@ -16,9 +16,10 @@
     "baseUrl": ".",
     "paths": {
       "@client/ui/*": ["apps/client/components/UI/*"],
+      "@xxx/prism": ["libs/prism/src/index.ts"],
       "@xxx/types": ["libs/types/src/index.ts"],
-      "@xxx/ui-components/*": ["libs/ui-components/src/lib/components/*"],
       "@xxx/types/*": ["libs/types/src/lib/*"],
+      "@xxx/ui-components/*": ["libs/ui-components/src/lib/components/*"]
     }
   },
   "exclude": ["node_modules", "tmp"]
