@@ -5,7 +5,7 @@ import { Button } from '@xxx/ui-components/Button';
 import type { Session } from 'next-auth';
 import { useSession, signOut } from 'next-auth/react';
 
-export default function NavBar({ session }: { session: Session }): JSX.Element {
+export default function NavBar({ session }: { session: Session | null }): JSX.Element {
   const logoutHandler = (): void => {
     signOut({ callbackUrl: '/' }).catch((error) => {
       console.error('Logout error', error);

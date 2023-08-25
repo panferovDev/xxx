@@ -6,7 +6,7 @@ import StList from '../UI/StList';
 import { useStSeats } from '../../hooks/usseStSeats';
 import Denided from '../UI/Denided/Denided';
 
-export default function Index({ session }: { session: Session }): JSX.Element {
+export default function Index({ session }: { session: Session | null }): JSX.Element {
   const { submitHandler, seats } = useStSeats();
   if (!session?.user) return <Denided />;
   return (
