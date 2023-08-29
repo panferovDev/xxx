@@ -22,6 +22,14 @@
         "cwd": "libs/prism/src/lib"
       }
  },
+ "gen": {
+  "executor": "nx:run-commands",
+  "outputs": [],
+  "options": {
+    "command": "npx prisma generate",
+    "cwd": "libs/prism/src/lib"
+  }
+},
     "lint": {
       "executor": "@nx/linter:eslint",
       "outputs": ["{options.outputFile}"],
