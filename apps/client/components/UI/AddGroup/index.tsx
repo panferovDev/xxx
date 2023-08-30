@@ -1,6 +1,10 @@
+'use client';
+
 import { Input } from '@xxx/ui-components/Input';
 import { Button } from '@xxx/ui-components/Button';
-import { Card, CardHeader, CardDescription, CardTitle, CardContent } from '@xxx/ui-components/Card';
+import {
+  Card, CardHeader, CardDescription, CardTitle, CardContent,
+} from '@xxx/ui-components/Card';
 
 export default function AddGroup(): JSX.Element {
   return (

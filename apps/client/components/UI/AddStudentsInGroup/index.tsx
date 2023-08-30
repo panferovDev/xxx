@@ -13,19 +13,23 @@ import { Textarea } from '@xxx/ui-components/Textarea';
 import { Label } from '@xxx/ui-components/Label';
 import { FormItem } from '@xxx/ui-components/Form';
 import { Button } from '@xxx/ui-components/Button';
-import { Card, CardHeader, CardDescription, CardTitle, CardContent } from '@xxx/ui-components/Card';
+import {
+  Card, CardHeader, CardTitle, CardContent,
+} from '@xxx/ui-components/Card';
+import useStGroups from '../../../hooks/useStGroups';
 
 export default function AddStudentsInGroup(): JSX.Element {
+  const { studentSubmitHandler } = useStGroups();
   return (
     <Card className="mt-10 hover:border-cyan-50">
       <CardHeader>
         <CardTitle>Добавление студентов</CardTitle>
       </CardHeader>
       <CardContent>
-        <form>
+        <form onSubmit={studentSubmitHandler}>
           <FormItem>
             <Label>Выбор группы:</Label>
-            <Select>
+            <Select name="gId">
               <SelectTrigger className="w-full">
                 <SelectValue placeholder="Select group" />
               </SelectTrigger>
