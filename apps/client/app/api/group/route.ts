@@ -7,7 +7,17 @@ export async function GET(request: Request): Promise<Response> {
 }
 
 export async function POST(request: Request): Promise<Response> {
-  const data = await request.json();
-  console.log('data---', data);
-  return NextResponse.json({ messge: JSON.stringify(data) }, { status: 200 });
+  const data = (await request.json()) as { group: string };
+  try {
+    const group = await prisma.group.upsert({
+      where: { name: data.group },
+      update: {},
+      create: { name: data.group },
+      include: { students: true },
+    });
+    return new Response(JSON.stringify(group));
+  } catch (error) {
+    console.log(error);
+    return NextResponse.json({ messge: 'group add error' }, { status: 500 });
+  }
 }

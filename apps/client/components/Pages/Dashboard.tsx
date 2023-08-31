@@ -1,11 +1,13 @@
 import AddStudentsInGroup from '../UI/AddStudentsInGroup';
 import AddGroup from '../UI/AddGroup';
+import { useAppDispatch } from 'apps/client/features/redux/reduxHooks';
+import AllGroupsCard from '@client/ui/AllGroupsCard';
 
-export default function Dashboard(): JSX.Element {
+export default async function Dashboard(): Promise<JSX.Element> {
   return (
-    <div className="flex md:flex-row sm:flex-col">
+    <div className="flex md:flex-row sm:flex-col gap-5">
       <div className="w-full md:w-1/2">
-        <h2 className="text-3xl font-bold">Dashboardd</h2>
+        <AllGroupsCard />
       </div>
       <div className="w-full md:w-1/2">
         <AddGroup />

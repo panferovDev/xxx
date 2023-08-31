@@ -24,6 +24,8 @@
       ],
       "plugins": ["react", "@typescript-eslint", "react-hooks"],
       "rules": {
+        "implicit-arrow-linebreak": "off",
+        "no-void":"off",
         "react/jsx-one-expression-per-line": "off",
         "@next/next/no-html-link-for-pages": ["error", "apps/client/pages"],
         "@typescript-eslint/no-unused-vars": "warn",

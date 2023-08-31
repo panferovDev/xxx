@@ -1,18 +1,18 @@
 import type { SeatType, SeatStudent } from '@xxx/types/seatsTypes';
-import type { groupAndStydentsFormType } from '@xxx/types/studentsGroup';
+import type { groupAndStydentsFormType, StudentType } from '@xxx/types/studentsGroup';
 import type { AxiosError } from 'axios';
 import { apiService } from './apiService';
 
-export const studentSeat = (obj: SeatType): Promise<SeatStudent[]> => apiService
-  .post<SeatStudent[]>('/', obj)
-  .then(({ data }) => data)
-  .catch((err: AxiosError) => {
-    throw new Error(err.message);
-  });
-
-export const addStudentsService = (data: groupAndStydentsFormType): void => {
+export const studentSeat = (obj: SeatType): Promise<SeatStudent[]> =>
   apiService
-    .post('/group', data)
-    .then((res) => console.log(res.data))
-    .catch((err) => console.log(err));
-};
+    .post<SeatStudent[]>('/', obj)
+    .then(({ data }) => data)
+    .catch((err: AxiosError) => {
+      throw new Error(err.message);
+    });
+
+export const addStudentsService = (students: groupAndStydentsFormType): Promise<StudentType[]> =>
+  apiService
+    .post<StudentType[]>('/students', students)
+    .then(({ data }) => data)
+    .catch((err) => Promise.reject(err));

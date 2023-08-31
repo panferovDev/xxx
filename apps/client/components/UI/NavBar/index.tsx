@@ -4,6 +4,7 @@ import React from 'react';
 import { Button } from '@xxx/ui-components/Button';
 import type { Session } from 'next-auth';
 import { signOut } from 'next-auth/react';
+import Navigation from './Navigation';
 
 export default function NavBar({ session }: { session: Session | null }): JSX.Element {
   const logoutHandler = (): void => {
@@ -26,6 +27,7 @@ export default function NavBar({ session }: { session: Session | null }): JSX.El
         >
           <span className="sr-only">Open main menu</span>
         </button>
+        <Navigation />
         <div className="hidden w-full md:block md:w-auto" id="navbar-default">
           {session && (
             <>

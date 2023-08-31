@@ -13,12 +13,13 @@ import { Textarea } from '@xxx/ui-components/Textarea';
 import { Label } from '@xxx/ui-components/Label';
 import { FormItem } from '@xxx/ui-components/Form';
 import { Button } from '@xxx/ui-components/Button';
-import {
-  Card, CardHeader, CardTitle, CardContent,
-} from '@xxx/ui-components/Card';
+import { Card, CardHeader, CardTitle, CardContent } from '@xxx/ui-components/Card';
 import useStGroups from '../../../hooks/useStGroups';
+import { useAppSelector } from 'apps/client/features/redux/reduxHooks';
 
 export default function AddStudentsInGroup(): JSX.Element {
+  const groups = useAppSelector((state) => state.groups);
+
   const { studentSubmitHandler } = useStGroups();
   return (
     <Card className="mt-10 hover:border-cyan-50">
@@ -29,16 +30,18 @@ export default function AddStudentsInGroup(): JSX.Element {
         <form onSubmit={studentSubmitHandler}>
           <FormItem>
             <Label>Выбор группы:</Label>
-            <Select name="gId">
+            <Select name="gId" required>
               <SelectTrigger className="w-full">
                 <SelectValue placeholder="Select group" />
               </SelectTrigger>
               <SelectContent>
                 <SelectGroup>
                   <SelectLabel>Groups</SelectLabel>
-                  <SelectItem value="apple">Tigers-msk-2023</SelectItem>
-                  <SelectItem value="banana">Bears-msk-2023</SelectItem>
-                  <SelectItem value="blueberry">Raccoons-msk-2023</SelectItem>
+                  {groups.map((group) => (
+                    <SelectItem key={group.id} value={`${group.id}`}>
+                      {group.name}
+                    </SelectItem>
+                  ))}
                 </SelectGroup>
               </SelectContent>
             </Select>
@@ -53,6 +56,10 @@ export default function AddStudentsInGroup(): JSX.Element {
               required
             />
           </FormItem>
+          <span className='text-xs text-gray-400'>
+            * Если имeна не уникальны, то они будут проигнорированы <br/>
+            * Имена должны быть разделены переносом строки
+          </span>
           <div className="flex mt-4 justify-start">
             <Button type="submit">Submit</Button>
           </div>
