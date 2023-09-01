@@ -19,3 +19,8 @@ export type GroupWithStudentsType = {
     name: string;
     students: StudentType[];
 }
+
+export type DeleteStudentType = {
+    sId: number;
+    gId: number;
+};

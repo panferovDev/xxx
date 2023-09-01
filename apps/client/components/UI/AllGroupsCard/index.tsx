@@ -6,16 +6,19 @@ import { Avatar, AvatarFallback, AvatarImage } from '@xxx/ui-components/Avatar';
 import AllGroupMenu from './AllGroupMenu';
 import DeleteModal from './DeleteModal';
 import { GroupType } from '@xxx/types/studentsGroup';
+import ChangeGropStudentModal from './ChangeGropStudentModal';
 
 export default function AllGroupsCard(): JSX.Element {
   const groups = useAppSelector((state) => state.groups);
   const [selectedGr, setSelectedGr] = useState<GroupType | null>(null);
+  const [change, setChange] = useState<GroupType | null>(null);
 
   return (
     <Card className="hover:border-cyan-50">
       <CardHeader>
         <CardTitle>Группы</CardTitle>
         <DeleteModal selectedGr={selectedGr} setSelectedGr={setSelectedGr} />
+        <ChangeGropStudentModal change={change} setChange={setChange} allGroups={groups}/>
       </CardHeader>
       <CardContent>
         <div className="flex gap-5 flex-col">
@@ -35,7 +38,12 @@ export default function AllGroupsCard(): JSX.Element {
                   </p>
                 </div>
               </div>
-              <AllGroupMenu setSelectedGr={setSelectedGr} group={group} />
+              <AllGroupMenu
+                setSelectedGr={setSelectedGr}
+                group={group}
+                change={group}
+                setChange={setChange}
+              />
             </div>
           ))}
         </div>

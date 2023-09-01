@@ -21,15 +21,19 @@ import React from 'react';
 export type AllGroupMenuProps = {
   setSelectedGr: (gr: GroupType | null) => void;
   group: GroupType;
+  change: GroupType | null;
+  setChange: (group: GroupType | null) => void;
 };
 
-function AllGroupMenu({ setSelectedGr, group }: AllGroupMenuProps): JSX.Element {
+function AllGroupMenu({
+  setSelectedGr, group, change, setChange,
+}: AllGroupMenuProps): JSX.Element {
   return (
     <Menubar>
       <MenubarMenu>
         <MenubarTrigger>Редактирование</MenubarTrigger>
         <MenubarContent>
-          <MenubarItem>Изменить</MenubarItem>
+          <MenubarItem onClick={() => setChange(change)}>Изменить</MenubarItem>
           <MenubarItem onClick={() => setSelectedGr(group)} className="text-red-700">
             Удалить
           </MenubarItem>

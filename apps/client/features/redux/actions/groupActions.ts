@@ -1,7 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import type { GroupType, StudentType, groupAndStydentsFormType } from '@xxx/types/studentsGroup';
+import type { DeleteStudentType, GroupType, StudentType, groupAndStydentsFormType } from '@xxx/types/studentsGroup';
 import { createGroupService, deleteGroupService } from '../../../services/groupService';
-import { addStudentsService } from 'apps/client/services/studentService';
+import { addStudentsService, deleteStudentService } from 'apps/client/services/studentService';
 
 export const addGroupThunk = createAsyncThunk<GroupType, string>(
   'group/addGroup',
@@ -15,8 +15,12 @@ export const addStudentsThunk = createAsyncThunk<
   addStudentsService(students).then((data) => ({ students: data, gId: students.gId })),
 );
 
-export const deleteGroupThunk = createAsyncThunk<number, number>(
-  'group/deleteGroup',
-  async (id) => 
+export const deleteGroupThunk = createAsyncThunk<number, number>('group/deleteGroup', async (id) =>
   deleteGroupService(id).then((data) => data),
+);
+
+export const deleteStudentThunk = createAsyncThunk<DeleteStudentType, DeleteStudentType>(
+  'group/deleteStudent',
+  async (studentData) => 
+    deleteStudentService(studentData).then((data) => data),
 );

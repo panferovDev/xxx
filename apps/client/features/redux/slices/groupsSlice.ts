@@ -1,7 +1,9 @@
 import type { PayloadAction } from '@reduxjs/toolkit';
 import { createSlice } from '@reduxjs/toolkit';
 import type { GroupType } from '@xxx/types/studentsGroup';
-import { addGroupThunk, addStudentsThunk, deleteGroupThunk } from '../actions/groupActions';
+import {
+  addGroupThunk, addStudentsThunk, deleteGroupThunk, deleteStudentThunk,
+} from '../actions/groupActions';
 
 const initialState: GroupType[] = [];
 
@@ -29,6 +31,13 @@ const groupsSlice = createSlice({
     });
     builder.addCase(deleteGroupThunk.fulfilled, (state, action) =>
       state.filter((group) => group.id !== action.payload));
+
+    builder.addCase(deleteStudentThunk.fulfilled, (state, action) => {
+      const group = state.find((el) => el.id === action.payload.gId);
+      if (group) {
+        group.students.splice(group.students.findIndex((el) => el.id === action.payload.sId), 1); 
+      }
+    });
   },
 });
 

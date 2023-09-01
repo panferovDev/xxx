@@ -29,7 +29,7 @@ export default function DeleteModal({
   };
   if (!selectedGr) return null;
   return (
-    <Dialog open={!!selectedGr}>
+    <Dialog open={!!selectedGr} onOpenChange={() => setSelectedGr(null)}>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
           <DialogTitle className="text-red-500 text-center">
