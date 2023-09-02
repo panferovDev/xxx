@@ -1,14 +1,11 @@
 'use client';
 
-import type { Session } from 'next-auth';
 import AddSeatForm from '../UI/AddSeatForm';
 import StList from '../UI/StList';
 import { useStSeats } from '../../hooks/usseStSeats';
-import Denided from '../UI/Denided/Denided';
 
-export default function Index({ session }: { session: Session | null }): JSX.Element {
+export default function Index(): JSX.Element {
   const { submitHandler, seats } = useStSeats();
-  if (!session?.user) return <Denided />;
   return (
     <>
       <div className="flex mt-10  justify-center">

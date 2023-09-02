@@ -18,10 +18,34 @@
       "executor": "nx:run-commands",
       "outputs": [],
       "options": {
-        "command": "npx prisma migrate dev --name init",
+        "command": "npx prisma migrate dev --name init --preview-feature",
         "cwd": "libs/prism/src/lib"
       }
- },
+    },
+    "reset": {
+      "executor": "nx:run-commands",
+      "outputs": [],
+      "options": {
+        "command": "npx prisma migrate reset --force",
+        "cwd": "libs/prism/src/lib"
+      }
+    },
+    "gen": {
+      "executor": "nx:run-commands",
+      "outputs": [],
+      "options": {
+        "command": "npx prisma generate",
+        "cwd": "libs/prism/src/lib"
+      }
+    },
+    "upd": {
+      "executor": "nx:run-commands",
+      "outputs": [],
+      "options": {
+        "command": "npx prisma migrate dev --preview-feature",
+        "cwd": "libs/prism/src/lib"
+      }
+    },
     "lint": {
       "executor": "@nx/linter:eslint",
       "outputs": ["{options.outputFile}"],

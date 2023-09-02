@@ -11,14 +11,21 @@ datasource db {
 
 model Group {
   id Int @id @default(autoincrement())
-  name String
+  name String @unique
   students Student[]
 }
 
 model Student {
   id Int @id @default(autoincrement())
   name String
-  git String
-  groupId Int
-  group Group @relation(fields: [groupId], references: [id])
+  groupId Int 
+  group Group @relation(fields: [groupId], references: [id], onDelete: Cascade)
+  @@unique([name, groupId])
+}
+
+model User {
+  id Int @id @default(autoincrement())
+  name String
+  email String @unique
+  avatar String?
 }
