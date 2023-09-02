@@ -1,36 +1,32 @@
 import type { GroupType } from '@xxx/types/studentsGroup';
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@xxx/ui-components/Dialog';
-import useChangeStGr from '../../../../hooks/useChangeStGr';
+import {
+  Dialog, DialogContent, DialogHeader, DialogTitle,
+} from '@xxx/ui-components/Dialog';
 import StudentItem from './StudentItem';
 
 export type ChangeGropStudentModalProps = {
-  change: GroupType | null;
-  setChange: (group: GroupType | null) => void;
-  allGroups: GroupType[];
+  studentsChangeModal: boolean;
+  setStudentsChangeModal: (bool: boolean) => void;
+  group: GroupType;
 };
 
 export default function ChangeGropStudentModal({
-  change,
-  setChange,
-  allGroups,
+  studentsChangeModal,
+  setStudentsChangeModal,
+  group,
 }: ChangeGropStudentModalProps): JSX.Element | null {
-  const { studentClickSubmit, studentSubmit, studentDeleteHandler } = useChangeStGr();
-  if (!change) return null;
+  if (!studentsChangeModal) return null;
   return (
-    <Dialog open={!!change} onOpenChange={() => setChange(null)}>
+    <Dialog open={studentsChangeModal} onOpenChange={() => setStudentsChangeModal(false)}>
       <DialogContent className="max-h-[640px] overflow-scroll">
         <DialogHeader>
           <DialogTitle className=" text-center">
-            Редактирование <br /> {change.name}
+            Редактирование <br /> {group?.name}
           </DialogTitle>
-          {change.students.map((student) => (
+          {group?.students.map((student) => (
             <StudentItem
-              allGroups={allGroups}
               key={student.id}
               student={student}
-              studentClickSubmit={studentClickSubmit}
-              studentSubmit={studentSubmit}
-              studentDeleteHandler={studentDeleteHandler}
             />
           ))}
         </DialogHeader>

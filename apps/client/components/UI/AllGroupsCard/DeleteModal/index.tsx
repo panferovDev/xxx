@@ -14,26 +14,26 @@ import { useAppDispatch } from 'apps/client/features/redux/reduxHooks';
 import { deleteGroupThunk } from 'apps/client/features/redux/actions/groupActions';
 
 export type DeleteModalProps = {
-  selectedGr: GroupType | null;
-  setSelectedGr: (gr: GroupType | null) => void;
+  id: number;
+  setDelModal: (id: number | null) => void;
 };
 
 export default function DeleteModal({
-  selectedGr,
-  setSelectedGr,
+  id,
+  setDelModal
 }: DeleteModalProps): JSX.Element | null {
   const dispatch = useAppDispatch();
   const deleteGroupHandler = () => {
-    if (!selectedGr) return;
-    dispatch(deleteGroupThunk(selectedGr.id)).then(() => setSelectedGr(null));
+    if (!id) return;
+    dispatch(deleteGroupThunk(id)).then(() => setDelModal(null));
   };
-  if (!selectedGr) return null;
+  if (!id) return null;
   return (
-    <Dialog open={!!selectedGr} onOpenChange={() => setSelectedGr(null)}>
+    <Dialog open={!!id} onOpenChange={() => setDelModal(null)}>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
           <DialogTitle className="text-red-500 text-center">
-            Вы действительно хотите удалить <br /> {selectedGr.name} ?
+            Подтвердите удаление группы
           </DialogTitle>
           <DialogDescription className="text-center text-lg">
             Группа будет удалена со всеми студентами
@@ -41,7 +41,7 @@ export default function DeleteModal({
         </DialogHeader>
         <DialogFooter>
           <div className="flex w-full flex-col gap-2">
-            <Button variant={'outline'} className="w-full" onClick={() => setSelectedGr(null)}>
+            <Button variant={'outline'} className="w-full" onClick={() => setDelModal(null)}>
               нет
             </Button>
             <Button variant="destructive" onClick={deleteGroupHandler}>

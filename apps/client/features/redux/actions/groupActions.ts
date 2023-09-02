@@ -1,7 +1,19 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import type { DeleteStudentType, GroupType, StudentType, groupAndStydentsFormType } from '@xxx/types/studentsGroup';
+import {
+  UpdateStudentType,
+  type DeleteStudentType,
+  type GroupType,
+  type StudentType,
+  type groupAndStydentsFormType,
+  MovedStudentType,
+} from '@xxx/types/studentsGroup';
 import { createGroupService, deleteGroupService } from '../../../services/groupService';
-import { addStudentsService, deleteStudentService } from 'apps/client/services/studentService';
+import {
+  addStudentsService,
+  changeGroupService,
+  deleteStudentService,
+  updateStudentService,
+} from 'apps/client/services/studentService';
 
 export const addGroupThunk = createAsyncThunk<GroupType, string>(
   'group/addGroup',
@@ -21,6 +33,20 @@ export const deleteGroupThunk = createAsyncThunk<number, number>('group/deleteGr
 
 export const deleteStudentThunk = createAsyncThunk<DeleteStudentType, DeleteStudentType>(
   'group/deleteStudent',
-  async (studentData) => 
-    deleteStudentService(studentData).then((data) => data),
+  async (studentData) => deleteStudentService(studentData).then((data) => data),
+);
+
+export const updateNameStudentThunk = createAsyncThunk<UpdateStudentType, UpdateStudentType>(
+  'group/updateStudent',
+  async (updStudentData) => updateStudentService(updStudentData).then((data) => data),
+);
+
+export const changeGroupThunk = createAsyncThunk<MovedStudentType, Omit<MovedStudentType, 'from'>>(
+  'group/changeGroup',
+  async (move) =>
+    changeGroupService(move).then((data) => ({
+      from: move.student.groupId,
+      student: data,
+      to: move.to,
+    })),
 );

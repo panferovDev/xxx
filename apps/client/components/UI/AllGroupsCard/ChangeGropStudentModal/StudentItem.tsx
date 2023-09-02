@@ -16,34 +16,30 @@ import {
   MenubarSubTrigger,
   MenubarTrigger,
 } from '@xxx/ui-components/Menubar';
+import useChangeStGr from '../../../../hooks/useChangeStGr';
+import { useAppSelector } from 'apps/client/features/redux/reduxHooks';
 
 export type StudentItemProps = {
   student: StudentType;
-  studentClickSubmit: (formRef: React.RefObject<HTMLFormElement>) => void;
-  studentSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
-  allGroups: GroupType[];
-  studentDeleteHandler: (delData: DeleteStudentType) => void;
 };
 
-function StudentItem({
-  student,
-  studentClickSubmit,
-  studentSubmit,
-  allGroups,
-  studentDeleteHandler,
-}: StudentItemProps): JSX.Element {
+function StudentItem({ student }: StudentItemProps): JSX.Element {
   const formRef = useRef<HTMLFormElement>(null);
+  const allGroups = useAppSelector((state) => state.groups);
+  const { studentClickSubmit, studentDeleteHandler, studentSubmit, movedStudentHandler } =
+    useChangeStGr();
 
   return (
     <div className="flex justify-between items-center mt-3">
       <form ref={formRef} onSubmit={studentSubmit}>
-        <Input name="id" defaultValue={student.id} type="hidden" />
-        <Input name="name" className="w-100" defaultValue={student.name} />
+        <Input name="sId" defaultValue={student.id} type="hidden" />
+        <Input name="gId" defaultValue={student.groupId} type="hidden" />
+        <Input name="updName" className="w-100" defaultValue={student.name} />
       </form>
       <div className="flex justify-end mr-15">
         <Menubar>
           <MenubarMenu>
-            <MenubarTrigger className="text-purple-600">actions</MenubarTrigger>
+            <MenubarTrigger className="text-purple-600">действия</MenubarTrigger>
             <MenubarContent>
               <MenubarItem onClick={() => studentClickSubmit(formRef)}>Изменить</MenubarItem>
               <MenubarSub>
@@ -52,7 +48,12 @@ function StudentItem({
                   {allGroups
                     .filter((group) => group.id !== student.groupId)
                     .map((group) => (
-                      <MenubarItem key={group.id}>{group.name}</MenubarItem>
+                      <MenubarItem
+                        key={group.id}
+                        onClick={() => movedStudentHandler({ student: student, to: group.id })}
+                      >
+                        {group.name}
+                      </MenubarItem>
                     ))}
                 </MenubarSubContent>
               </MenubarSub>

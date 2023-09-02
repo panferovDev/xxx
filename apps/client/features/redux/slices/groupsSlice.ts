@@ -2,7 +2,12 @@ import type { PayloadAction } from '@reduxjs/toolkit';
 import { createSlice } from '@reduxjs/toolkit';
 import type { GroupType } from '@xxx/types/studentsGroup';
 import {
-  addGroupThunk, addStudentsThunk, deleteGroupThunk, deleteStudentThunk,
+  addGroupThunk,
+  addStudentsThunk,
+  changeGroupThunk,
+  deleteGroupThunk,
+  deleteStudentThunk,
+  updateNameStudentThunk,
 } from '../actions/groupActions';
 
 const initialState: GroupType[] = [];
@@ -35,7 +40,32 @@ const groupsSlice = createSlice({
     builder.addCase(deleteStudentThunk.fulfilled, (state, action) => {
       const group = state.find((el) => el.id === action.payload.gId);
       if (group) {
-        group.students.splice(group.students.findIndex((el) => el.id === action.payload.sId), 1); 
+        group.students.splice(
+          group.students.findIndex((el) => el.id === action.payload.sId),
+          1,
+        );
+      }
+    });
+
+    builder.addCase(updateNameStudentThunk.fulfilled, (state, action) => {
+      const group = state.find((el) => el.id === Number(action.payload.gId));
+      if (group) {
+        const student = group.students.find((el) => el.id === Number(action.payload.sId));
+        if (student) {
+          student.name = action.payload.updName;
+        }
+      }
+    });
+
+    builder.addCase(changeGroupThunk.fulfilled, (state, action) => {
+      const groupFrom = state.find((el) => el.id === action.payload.from);
+      const groupTo = state.find((el) => el.id === action.payload.to);
+      if (groupFrom && groupTo) {
+        groupFrom.students.splice(
+          groupFrom.students.findIndex((el) => el.id === action.payload.student.id),
+          1,
+        );
+        groupTo.students.push(action.payload.student);
       }
     });
   },
