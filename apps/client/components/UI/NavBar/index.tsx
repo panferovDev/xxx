@@ -27,7 +27,7 @@ export default function NavBar({ session }: { session: Session | null }): JSX.El
         >
           <span className="sr-only">Open main menu</span>
         </button>
-        <Navigation />
+        {session && <Navigation />}
         <div className="hidden w-full md:block md:w-auto" id="navbar-default">
           {session && (
             <>
