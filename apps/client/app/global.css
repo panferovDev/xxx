@@ -68,5 +68,5 @@
     }
   }
 .active {
-  @apply underline underline-offset-8 uppercase text-gray-600;
+  @apply underline underline-offset-8 uppercase text-gray-50;
 }

@@ -14,19 +14,19 @@ export default function Navigation({
   const pathname = usePathname();
   return (
     <nav className={cn('flex items-center space-x-4 lg:space-x-6', className)} {...props}>
-      <Link href="/" className={pathname === '/' ? 'active' : 'transition duration-300'}>
+      <Link href="/" className={pathname === '/' ? 'active' : 'uppercase text-gray-500'}>
         dashboard
       </Link>
 
       <Link
         href="/exam"
-        className={pathname === '/exam' ? 'active' : 'transition duration-300'}
+        className={pathname === '/exam' ? 'active' : 'uppercase text-gray-500'}
       >
         exam
       </Link>
       <Link
         href="/review"
-        className={pathname === '/review' ? 'active' : 'transition duration-300'}
+        className={pathname === '/review' ? 'active' : 'uppercase text-gray-500'}
       >
         review
       </Link>
