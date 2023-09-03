@@ -30,7 +30,7 @@ function AllGroupMenu({ setDelModal, id, setStudentsChangeModal }: AllGroupMenuP
           </MenubarItem>
         </MenubarContent>
       </MenubarMenu>{' '}
-      |
+      {/* |
       <MenubarMenu>
         <MenubarTrigger>Просмотр</MenubarTrigger>
         <MenubarContent>
@@ -48,7 +48,7 @@ function AllGroupMenu({ setDelModal, id, setStudentsChangeModal }: AllGroupMenuP
           <MenubarSeparator />
           <MenubarItem inset>Hide Sidebar</MenubarItem>
         </MenubarContent>
-      </MenubarMenu>
+      </MenubarMenu> */}
     </Menubar>
   );
 }

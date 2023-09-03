@@ -1,7 +1,6 @@
+import AllGroupsCard from '../UI/AllGroupsCard';
 import AddStudentsInGroup from '../UI/AddStudentsInGroup';
 import AddGroup from '../UI/AddGroup';
-import { useAppDispatch } from 'apps/client/features/redux/reduxHooks';
-import AllGroupsCard from '@client/ui/AllGroupsCard';
 
 export default async function Dashboard(): Promise<JSX.Element> {
   return (

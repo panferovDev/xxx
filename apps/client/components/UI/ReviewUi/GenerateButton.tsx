@@ -5,7 +5,7 @@ import { Button } from '@xxx/ui-components/Button';
 
 export default function GenerateButton(): JSX.Element {
   return (
-    <div>
+    <div className="mt-3">
       <Button type="button" className="w-full">
         Сгенерировать
       </Button>
