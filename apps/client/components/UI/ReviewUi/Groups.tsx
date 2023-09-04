@@ -1,5 +1,6 @@
 'use client';
 
+import { GroupType } from '@xxx/types/studentsGroup';
 import {
   Select,
   SelectContent,
@@ -13,12 +14,22 @@ import { useAppSelector } from 'apps/client/features/redux/reduxHooks';
 
 import React from 'react';
 
-export default function Groups(): JSX.Element {
+export type GroupsProps = {
+  setGroupHandler: (data: GroupType | null) => void;
+};
+
+export default function Groups({ setGroupHandler }: GroupsProps): JSX.Element {
   const groups = useAppSelector((state) => state.groups);
+
+  const changeHandler = (id: string) => {
+    const group = groups.find((group) => group.id === Number(id));
+    setGroupHandler(group ? group : null);
+  };
+
   return (
     <div className="flex flex-col gap-5 mt-2">
       <h3 className=" text-gray-400 ">Группа:</h3>
-      <Select name="gId" required>
+      <Select onValueChange={changeHandler} name="gId" required>
         <SelectTrigger className="w-full">
           <SelectValue placeholder="Выбор группы" />
         </SelectTrigger>
