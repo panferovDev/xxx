@@ -17,6 +17,8 @@ export default function ReviewPage(): JSX.Element {
     <div className="flex md:flex-row sm:flex-col gap-5 mb-10">
       <div className="w-full md:w-9/12">
         <ReviewTable />
+        <ReviewTable />
+        <ReviewTable />
       </div>
       <div className="w-full md:w-3/12">
         <Groups setGroupHandler={setGroupHandler} />

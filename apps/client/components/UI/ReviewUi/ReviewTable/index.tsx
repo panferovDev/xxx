@@ -1,63 +1,39 @@
 'use client';
 
 import React from 'react';
-import {
-  Table,
-  TableBody,
-  TableCaption,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from '@xxx/ui-components/Table';
-
-const invoices = [
-  {
-    invoice: 'INV001',
-    paymentStatus: 'Paid',
-    totalAmount: '$250.00',
-    paymentMethod: 'Credit Card',
-  },
-  {
-    invoice: 'INV002',
-    paymentStatus: 'Pending',
-    totalAmount: '$150.00',
-    paymentMethod: 'PayPal',
-  },
-  {
-    invoice: 'INV003',
-    paymentStatus: 'Unpaid',
-    totalAmount: '$350.00',
-    paymentMethod: 'Bank Transfer',
-  },
-  {
-    invoice: 'INV004',
-    paymentStatus: 'Paid',
-    totalAmount: '$450.00',
-    paymentMethod: 'Credit Card',
-  },
-  {
-    invoice: 'INV005',
-    paymentStatus: 'Paid',
-    totalAmount: '$550.00',
-    paymentMethod: 'PayPal',
-  },
-  {
-    invoice: 'INV006',
-    paymentStatus: 'Pending',
-    totalAmount: '$200.00',
-    paymentMethod: 'Bank Transfer',
-  },
-  {
-    invoice: 'INV007',
-    paymentStatus: 'Unpaid',
-    totalAmount: '$300.00',
-    paymentMethod: 'Credit Card',
-  },
-];
 
 export default function ReviewTable(): JSX.Element {
   return (
-    <>table</>
+    <div className="mt-5">
+      <table className="border-collapse border border-slate-500 w-full">
+        <thead>
+          <tr>
+            <th className="border border-slate-500 bg-slate-700 vertical-bottom-to-top">дата</th>
+            <th className="border border-slate-500 bg-slate-700">Alex</th>
+            <th className="border border-slate-500 bg-slate-700">Julia</th>
+            <th className="border border-slate-500 bg-slate-700">Adom</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td rowSpan={3} className="text-center">
+              09.07
+            </td>
+            <td className="border border-slate-500 text-center p-1">John Dow</td>
+            <td className="border border-slate-500 text-center p-1">John Dow</td>
+            <td className="border border-slate-500 text-center p-1">John Dow a1</td>
+          </tr>
+          <tr>
+            <td className="border border-slate-500 text-center p-1">John Dow</td>
+            <td className="border border-slate-500 text-center p-1">John Dow</td>
+            <td className="border border-slate-500 text-center p-1">John Dow a2</td>
+          </tr>
+          <tr>
+            <td className="border border-slate-500 text-center p-1">John Dow</td>
+            <td className="border border-slate-500 text-center p-1" />
+          </tr>
+        </tbody>
+      </table>
+    </div>
   );
 }
