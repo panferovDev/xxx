@@ -1,4 +1,5 @@
 import { type } from "os";
+import { TeacherType } from "./reviewTypes";
 
 export type groupAndStydentsFormType = {
     gId: string;
@@ -37,4 +38,17 @@ export type MovedStudentType = {
     to: number;
     from: number;
     student: StudentType;
+}
+
+
+export type ReviewSliceType = {
+  teachers: TeacherType[];
+  group: null | number;
+  days: string[];
+}
+
+export type RevievSubmitType = {
+    teachers: TeacherType[];
+    group: null | number;
+    days: string[];
 }

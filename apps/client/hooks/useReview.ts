@@ -1,5 +1,4 @@
 import { useCallback } from 'react';
-import type { GroupType } from '@xxx/types/studentsGroup';
 import { useAppDispatch } from '../features/redux/reduxHooks';
 import {
   deleteTeacherAction,
@@ -11,8 +10,8 @@ import {
 export default function useReview(): {
   submitTeacherHandler: (e: React.FormEvent<HTMLFormElement>) => void;
   deleteTeacherHandler: (id: string) => void;
-  setDays: (num: number) => void;
-  setGroupHandler: (data: GroupType | null) => void;
+  setDays: (arr: string[]) => void;
+  setGroupHandler: (data: number | null) => void;
 } {
   const dispatch = useAppDispatch();
 
@@ -42,9 +41,7 @@ export default function useReview(): {
   );
 
   const setGroupHandler = useCallback(
-    (data: GroupType | null): void => {
-      console.log(data);
-
+    (data: number | null): void => {
       dispatch(setGroup(data));
     },
     [dispatch],

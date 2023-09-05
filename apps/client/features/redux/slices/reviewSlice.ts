@@ -1,16 +1,10 @@
 import type { PayloadAction } from '@reduxjs/toolkit';
 import { createSlice } from '@reduxjs/toolkit';
 import { v4 as uuidv4 } from 'uuid';
-import type { TeacherType } from '@xxx/types/reviewTypes';
-import type { GroupType } from '@xxx/types/studentsGroup';
+import type { GroupType, ReviewSliceType } from '@xxx/types/studentsGroup';
+import { submitReviewAction } from '../actions/reviewActions';
 
-export type InitialType = {
-  teachers: TeacherType[];
-  group: null | GroupType;
-  days: string[];
-};
-
-const initialState: InitialType = {
+const initialState: ReviewSliceType = {
   teachers: [],
   days: [],
   group: null,
@@ -34,9 +28,14 @@ const reviewSlice = createSlice({
       state.teachers = state.teachers.filter((teacher) => teacher.id !== action.payload);
     },
 
-    setGroup(state, action: PayloadAction<GroupType | null>) {
+    setGroup(state, action: PayloadAction<number | null>) {
       state.group = action.payload;
     },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(submitReviewAction.fulfilled, (state, action) => {
+      console.log('ddd');
+    });
   },
 });
 

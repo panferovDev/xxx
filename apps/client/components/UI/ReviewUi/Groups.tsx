@@ -15,15 +15,14 @@ import { useAppSelector } from 'apps/client/features/redux/reduxHooks';
 import React from 'react';
 
 export type GroupsProps = {
-  setGroupHandler: (data: GroupType | null) => void;
+  setGroupHandler: (id: number) => void;
 };
 
 export default function Groups({ setGroupHandler }: GroupsProps): JSX.Element {
   const groups = useAppSelector((state) => state.groups);
 
   const changeHandler = (id: string) => {
-    const group = groups.find((group) => group.id === Number(id));
-    setGroupHandler(group ? group : null);
+    setGroupHandler(Number(id));
   };
 
   return (
