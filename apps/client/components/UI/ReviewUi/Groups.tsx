@@ -38,7 +38,7 @@ export default function Groups({ setGroupHandler }: GroupsProps): JSX.Element {
             <SelectLabel>Groups</SelectLabel>
             {groups.map((group) => (
               <SelectItem key={group.id} value={`${group.id}`}>
-                {group.name}
+                {group.name} - <span className='text-gray-500'>{group.students.length}</span>
               </SelectItem>
             ))}
           </SelectGroup>

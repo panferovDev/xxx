@@ -8,10 +8,14 @@ export default function ReviewTable(): JSX.Element {
       <table className="border-collapse border border-slate-500 w-full">
         <thead>
           <tr>
-            <th className="border border-slate-500 bg-slate-700 vertical-bottom-to-top">дата</th>
-            <th className="border border-slate-500 bg-slate-700">Alex</th>
-            <th className="border border-slate-500 bg-slate-700">Julia</th>
-            <th className="border border-slate-500 bg-slate-700">Adom</th>
+            <th className="border border-slate-500 bg-slate-700 bg-opacity-20 vertical-bottom-to-top">
+              дата
+            </th>
+            <th className="border border-slate-500 bg-slate-700 bg-opacity-60 hover:bg-slate-400">
+              Alex
+            </th>
+            <th className="border border-slate-500 bg-slate-700 bg-opacity-60">Julia</th>
+            <th className="border border-slate-500 bg-slate-700 bg-opacity-60">Adom</th>
           </tr>
         </thead>
         <tbody>
@@ -19,7 +23,7 @@ export default function ReviewTable(): JSX.Element {
             <td rowSpan={3} className="text-center">
               09.07
             </td>
-            <td className="border border-slate-500 text-center p-1">John Dow</td>
+            <td className="border border-slate-500 text-center p-1 ">John Dow</td>
             <td className="border border-slate-500 text-center p-1">John Dow</td>
             <td className="border border-slate-500 text-center p-1">John Dow a1</td>
           </tr>

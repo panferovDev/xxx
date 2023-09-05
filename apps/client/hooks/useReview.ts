@@ -28,8 +28,8 @@ export default function useReview(): {
   );
 
   const setDays = useCallback(
-    (num: number): void => {
-      dispatch(setDaysAction(num));
+    (arr: string[]): void => {
+      dispatch(setDaysAction(arr));
     },
     [dispatch],
   );

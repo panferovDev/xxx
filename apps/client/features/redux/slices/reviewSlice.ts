@@ -7,12 +7,12 @@ import type { GroupType } from '@xxx/types/studentsGroup';
 export type InitialType = {
   teachers: TeacherType[];
   group: null | GroupType;
-  days: number;
+  days: string[];
 };
 
 const initialState: InitialType = {
   teachers: [],
-  days: 0,
+  days: [],
   group: null,
 };
 
@@ -26,7 +26,7 @@ const reviewSlice = createSlice({
         name: action.payload,
       });
     },
-    setDaysAction(state, action: PayloadAction<number>) {
+    setDaysAction(state, action: PayloadAction<string[]>) {
       state.days = action.payload;
     },
 

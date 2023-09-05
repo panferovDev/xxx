@@ -5,13 +5,23 @@ import { Calendar } from '@xxx/ui-components/Calendar';
 import { ru } from 'date-fns/locale';
 
 export type DatesProps = {
-  setDays: (num: number) => void;
+  setDays: (arr: string[]) => void;
 };
 
 export default function Dates({ setDays }: DatesProps): JSX.Element {
   const [dates, setDates] = useState<Date[] | undefined>([]);
   useEffect(() => {
-    setDays(dates?.length || 0);
+    if (dates) {
+      setDays(
+        dates.map(
+          (date) =>
+            `${String(date.getDate()).padStart(2, '0')}.${String(date.getMonth() + 1).padStart(
+              2,
+              '0',
+            )}`,
+        ),
+      );
+    }
   }, [dates]);
 
   return (
