@@ -47,7 +47,7 @@ export type ReviewSliceType = {
   days: string[];
 }
 
-export type RevievSubmitType = {
+export type ReviewSubmitType = {
     teachers: TeacherType[];
     group: null | number;
     days: string[];

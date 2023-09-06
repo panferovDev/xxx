@@ -7,4 +7,5 @@ export const submitReviewAction = createAsyncThunk<Promise<void>,RevievSubmitTyp
     'rewiev/submit',
     async(review) => 
     submitReviewServise(review)
+    .then((res) => res.data)
 )

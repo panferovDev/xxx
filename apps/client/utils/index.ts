@@ -19,6 +19,22 @@ export const arrShuffle = <T>(arr: T[]): T[] => {
   return newArr;
 };
 
+export const tableDistribution = (students, teachers, date) => {
+  const shuffledTeachers = arrShuffle(teachers);
+  const shuffledStudents = arrShuffle(students);
+  const teacherStudents = {};
+  teachers.forEach((teacher) => {
+    teacherStudents[teacher.id] = [];
+  });
+
+  shuffledStudents.forEach((student, index) => {
+    const teacherId = shuffledTeachers[index % shuffledTeachers.length].id;
+    teacherStudents[teacherId].push(student);
+  });
+  const maxStudents = Math.ceil(shuffledStudents.length / teachers.length);
+  return { teacherStudents, maxStudents, date, teachers };
+};
+
 export function seatPeople(names: string[], seatsCount: number): Person[] {
   const seated: Person[] = [];
 

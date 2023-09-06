@@ -8,6 +8,7 @@ const initialState: ReviewSliceType = {
   teachers: [],
   days: [],
   group: null,
+  rewiews: [],
 };
 
 const reviewSlice = createSlice({
@@ -34,12 +35,11 @@ const reviewSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(submitReviewAction.fulfilled, (state, action) => {
-      console.log('ddd');
+      state.rewiews = action.payload.result;
     });
   },
 });
 
 export default reviewSlice.reducer;
-export const {
-  setTeacherAction, deleteTeacherAction, setDaysAction, setGroup,
-} = reviewSlice.actions;
+export const { setTeacherAction, deleteTeacherAction, setDaysAction, setGroup } =
+  reviewSlice.actions;

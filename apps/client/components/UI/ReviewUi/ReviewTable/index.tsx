@@ -2,40 +2,45 @@
 
 import React from 'react';
 
-export default function ReviewTable(): JSX.Element {
+export default function ReviewTable({ review }): JSX.Element {
   return (
-    <div className="mt-5">
-      <table className="border-collapse border border-slate-500 w-full">
+    <div className="mt-9">
+      <table className="border-collapse border w-full table-fixed border-slate-500">
         <thead>
           <tr>
-            <th className="border border-slate-500 bg-slate-700 bg-opacity-20 vertical-bottom-to-top">
-              дата
-            </th>
-            <th className="border border-slate-500 bg-slate-700 bg-opacity-60 hover:bg-slate-400">
-              Alex
-            </th>
-            <th className="border border-slate-500 bg-slate-700 bg-opacity-60">Julia</th>
-            <th className="border border-slate-500 bg-slate-700 bg-opacity-60">Adom</th>
+            <th className="border border-slate-500 bg-slate-700 vertical-bottom-to-top">дата</th>
+            {review.teachers.map((teacher) => (
+              <th key={teacher.id} className="border border-slate-500 bg-slate-700">
+                {teacher.name}
+              </th>
+            ))}
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td rowSpan={3} className="text-center">
-              09.07
-            </td>
-            <td className="border border-slate-500 text-center p-1 ">John Dow</td>
-            <td className="border border-slate-500 text-center p-1">John Dow</td>
-            <td className="border border-slate-500 text-center p-1">John Dow a1</td>
-          </tr>
-          <tr>
-            <td className="border border-slate-500 text-center p-1">John Dow</td>
-            <td className="border border-slate-500 text-center p-1">John Dow</td>
-            <td className="border border-slate-500 text-center p-1">John Dow a2</td>
-          </tr>
-          <tr>
-            <td className="border border-slate-500 text-center p-1">John Dow</td>
-            <td className="border border-slate-500 text-center p-1" />
-          </tr>
+          {Array.from({ length: review.maxStudents }).map((_, rowIndex) => (
+            <tr key={rowIndex}>
+              {rowIndex === 0 && (
+                <td
+                  rowSpan={review.maxStudents}
+                  className={`text-center w-1/${review.teachers.length + 1}`}
+                >
+                  {review.date}
+                </td>
+              )}
+              {review.teachers.map((teacher) => (
+                <td
+                  key={teacher.id}
+                  className={`border border-slate-500 text-center p-1 w-1/${
+                    review.teachers.length + 1
+                  }`}
+                >
+                  {review.teacherStudents[teacher.id][rowIndex]
+                    ? review.teacherStudents[teacher.id][rowIndex].name
+                    : ''}
+                </td>
+              ))}
+            </tr>
+          ))}
         </tbody>
       </table>
     </div>
