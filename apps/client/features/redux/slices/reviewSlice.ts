@@ -1,14 +1,14 @@
 import type { PayloadAction } from '@reduxjs/toolkit';
 import { createSlice } from '@reduxjs/toolkit';
 import { v4 as uuidv4 } from 'uuid';
-import type { GroupType, ReviewSliceType } from '@xxx/types/studentsGroup';
+import type { ReviewSliceType } from '@xxx/types/studentsGroup';
 import { submitReviewAction } from '../actions/reviewActions';
 
 const initialState: ReviewSliceType = {
   teachers: [],
   days: [],
   group: null,
-  rewiews: [],
+  reviews: [],
 };
 
 const reviewSlice = createSlice({
@@ -35,11 +35,12 @@ const reviewSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(submitReviewAction.fulfilled, (state, action) => {
-      state.rewiews = action.payload.result;
+      state.reviews = action.payload;
     });
   },
 });
 
 export default reviewSlice.reducer;
-export const { setTeacherAction, deleteTeacherAction, setDaysAction, setGroup } =
-  reviewSlice.actions;
+export const {
+  setTeacherAction, deleteTeacherAction, setDaysAction, setGroup,
+} = reviewSlice.actions;

@@ -6,18 +6,19 @@ import Dates from '../UI/ReviewUi/Dates';
 import Groups from '../UI/ReviewUi/Groups';
 import Teachers from '../UI/ReviewUi/Teachers';
 import GenerateButton from '../UI/ReviewUi/GenerateButton';
-import ReviewTable from '../UI/ReviewUi/ReviewTable';
 import ReviewTableWrapper from '../UI/ReviewUi/ReviewTableWrapper';
 
 export default function ReviewPage(): JSX.Element {
-  const { deleteTeacherHandler, submitTeacherHandler, setDays, setGroupHandler } = useReview();
+  const {
+    deleteTeacherHandler, submitTeacherHandler, setDays, setGroupHandler,
+  } = useReview();
 
   return (
-    <div className="flex md:flex-row sm:flex-col gap-5 mb-10">
-      <div className="w-full md:w-9/12">
+    <div className="flex md:flex-row flex-col gap-5 mb-10">
+      <div className="w-2 md:w-9/12">
         <ReviewTableWrapper />
       </div>
-      <div className="w-full md:w-3/12">
+      <div className="w-12/12 md:w-3/12">
         <Groups setGroupHandler={setGroupHandler} />
         <Dates setDays={setDays} />
         <Teachers

@@ -1,6 +1,8 @@
-import type { ReviewSliceType } from '@xxx/types/studentsGroup';
+import type { ReviewSubmitType, TeacherStudentsType } from '@xxx/types/studentsGroup';
 import { apiService } from './apiService';
 
-export const submitReviewServise = (review: ReviewSliceType): void => apiService
-  .post('/review', review)
-  .catch((err) => console.log(err));
+export const submitReviewServise = (review: ReviewSubmitType): Promise<TeacherStudentsType[]> =>
+  apiService
+    .post<TeacherStudentsType[]>('/review', review)
+    .then((res) => res.data)
+    .catch((err) => Promise.reject(err));

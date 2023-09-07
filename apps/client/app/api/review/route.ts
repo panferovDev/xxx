@@ -17,8 +17,8 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
   while (students.length > 0) {
     const studentsPart = students.splice(0, studentsPerDay);
     result.push(tableDistribution(studentsPart, teachers, days[num]));
-    num++;
+    num += 1;
   }
 
-  return NextResponse.json({ result }, { status: 200 });
+  return NextResponse.json(result, { status: 200 });
 }

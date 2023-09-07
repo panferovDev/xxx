@@ -1,5 +1,8 @@
+import type { TeacherType } from '@xxx/types/reviewTypes';
+import type { StudentType, TeacherStudentsType } from '@xxx/types/studentsGroup';
 import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
+import { v4 as uuidv4 } from 'uuid';
 
 type Person = {
   name: string;
@@ -19,10 +22,14 @@ export const arrShuffle = <T>(arr: T[]): T[] => {
   return newArr;
 };
 
-export const tableDistribution = (students, teachers, date) => {
+export const tableDistribution = (
+  students: StudentType[],
+  teachers: TeacherType[],
+  date: string,
+): TeacherStudentsType => {
   const shuffledTeachers = arrShuffle(teachers);
   const shuffledStudents = arrShuffle(students);
-  const teacherStudents = {};
+  const teacherStudents: { [key: string]: StudentType[] } = {};
   teachers.forEach((teacher) => {
     teacherStudents[teacher.id] = [];
   });
@@ -31,14 +38,21 @@ export const tableDistribution = (students, teachers, date) => {
     const teacherId = shuffledTeachers[index % shuffledTeachers.length].id;
     teacherStudents[teacherId].push(student);
   });
+
   const maxStudents = Math.ceil(shuffledStudents.length / teachers.length);
-  return { teacherStudents, maxStudents, date, teachers };
+  return {
+    id: uuidv4(),
+    data: teacherStudents,
+    maxStudents,
+    date,
+    teachers,
+  };
 };
 
 export function seatPeople(names: string[], seatsCount: number): Person[] {
   const seated: Person[] = [];
 
-  for (let i = 0, j = 0; i < seatsCount && j < names.length; i += 2, j++) {
+  for (let i = 0, j = 0; i < seatsCount && j < names.length; i += 2, j += 1) {
     seated.push({ name: names[j], seat: i + 1 });
   }
 
@@ -53,7 +67,7 @@ export function seatPeople(names: string[], seatsCount: number): Person[] {
   }
 
   arrShuffle(remainingNames);
-  for (let i = 0; i < emptySeats.length && i < remainingNames.length; i++) {
+  for (let i = 0; i < emptySeats.length && i < remainingNames.length; i += 1) {
     seated.push({ name: remainingNames[i], seat: emptySeats[i] });
   }
 
