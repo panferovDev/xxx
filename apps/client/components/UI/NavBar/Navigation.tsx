@@ -1,36 +1,34 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable react/jsx-props-no-spreading */
 
 'use client';
 
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { cn } from '../../../utils/index';
 
 export default function Navigation({
   className,
   ...props
 }: React.HTMLAttributes<HTMLElement>): JSX.Element {
+  const pathname = usePathname();
   return (
     <nav className={cn('flex items-center space-x-4 lg:space-x-6', className)} {...props}>
-      <Link href="/" className="text-sm font-medium transition-colors hover:text-primary">
-        Dashboard
+      <Link href="/" className={pathname === '/' ? 'active' : 'uppercase text-gray-500'}>
+        dashboard
       </Link>
+
       <Link
         href="/exam"
-        className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
+        className={pathname === '/exam' ? 'active' : 'uppercase text-gray-500'}
       >
-        Exam
+        exam
       </Link>
       <Link
-        href="/"
-        className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
+        href="/review"
+        className={pathname === '/review' ? 'active' : 'uppercase text-gray-500'}
       >
-        scheduler
-      </Link>
-      <Link
-        href="/"
-        className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
-      >
-        scheduler
+        review
       </Link>
     </nav>
   );

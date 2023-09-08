@@ -3,6 +3,7 @@ import type { StateFromReducersMapObject } from '@reduxjs/toolkit';
 import { configureStore } from '@reduxjs/toolkit';
 import type { GroupType } from '@xxx/types/studentsGroup';
 import studentReducer from './slices/studentSlice';
+import reviewReducer from './slices/reviewSlice';
 import groupReducer from './slices/groupsSlice';
 
 export type State = {
@@ -12,18 +13,21 @@ export type State = {
 const reducer = {
   students: studentReducer,
   groups: groupReducer,
+  review: reviewReducer,
 };
 
-const store = ({ groups }: { groups: GroupType[] }) => configureStore({
-  reducer: {
-    students: studentReducer,
-    groups: groupReducer,
-  },
-  preloadedState: {
-    groups,
-  },
-  devTools: process.env.NODE_ENV !== 'production',
-});
+const store = ({ groups }: { groups: GroupType[] }) =>
+  configureStore({
+    reducer: {
+      students: studentReducer,
+      groups: groupReducer,
+      review: reviewReducer,
+    },
+    preloadedState: {
+      groups,
+    },
+    devTools: process.env.NODE_ENV !== 'production',
+  });
 
 type Store = ReturnType<typeof store>;
 export type RootState = StateFromReducersMapObject<typeof reducer>;

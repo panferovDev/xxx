@@ -1,9 +1,10 @@
 import { prisma } from '@xxx/prism';
 import { ca } from 'date-fns/locale';
+import type { NextRequest } from 'next/server';
 import { NextResponse } from 'next/server';
 
 export async function DELETE(
-  response: NextResponse,
+  request: NextRequest,
   { params }: { params: { id: string } },
 ): Promise<Response> {
   try {

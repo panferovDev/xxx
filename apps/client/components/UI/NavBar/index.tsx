@@ -15,7 +15,7 @@ export default function NavBar({ session }: { session: Session | null }): JSX.El
   return (
     <nav className="">
       <div className="max-w-screen-2xl flex flex-wrap items-center justify-between py-4">
-        <span className="self-start text-2xl text-violet-500 font-semibold whitespace-nowrap">
+        <span className="self-start text-2xl text-violet-600 font-semibold whitespace-nowrap">
           ElbrusHelper
         </span>
         <button
@@ -27,7 +27,7 @@ export default function NavBar({ session }: { session: Session | null }): JSX.El
         >
           <span className="sr-only">Open main menu</span>
         </button>
-        <Navigation />
+        {session && <Navigation />}
         <div className="hidden w-full md:block md:w-auto" id="navbar-default">
           {session && (
             <>

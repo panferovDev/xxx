@@ -8,7 +8,7 @@ import useGroup from '../../../hooks/useGroup';
 export default function AddGroup(): JSX.Element {
   const { submitHandler } = useGroup();
   return (
-    <Card className="hover:border-cyan-50">
+    <Card className="hover:border-cyan-50 hover:border-opacity-30">
       <CardHeader>
         <CardTitle>Добавление группы</CardTitle>
       </CardHeader>

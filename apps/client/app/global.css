@@ -67,3 +67,6 @@
       font-feature-settings: 'rlig' 1, 'calt' 1;
     }
   }
+.active {
+  @apply underline underline-offset-8 uppercase text-gray-50;
+}
