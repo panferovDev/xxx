@@ -1,5 +1,4 @@
 import { Roboto } from 'next/font/google';
-import {useMemo} from 'react';
 import { ThemeProvider } from '../components/themeProvider/theme-provider';
 import './global.css';
 import { Providers } from '../components/Providers';
