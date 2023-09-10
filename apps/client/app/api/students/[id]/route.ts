@@ -1,5 +1,5 @@
 import { prisma } from '@xxx/prism';
-import { ca } from 'date-fns/locale';
+import { requireSession } from 'apps/client/utils';
 import type { NextRequest } from 'next/server';
 import { NextResponse } from 'next/server';
 
@@ -7,6 +7,8 @@ export async function DELETE(
   request: NextRequest,
   { params }: { params: { id: string } },
 ): Promise<Response> {
+  const session = await requireSession();
+  if (!session) return NextResponse.json({ messge: 'not authorized' }, { status: 401 });
   try {
     await prisma.student.delete({ where: { id: Number(params.id) } });
     await prisma.$disconnect();
@@ -21,6 +23,8 @@ export async function PATCH(
   response: NextResponse,
   { params }: { params: { id: string } },
 ): Promise<Response> {
+  const session = await requireSession();
+  if (!session) return NextResponse.json({ messge: 'not authorized' }, { status: 401 });
   const body = (await response.json()) as { updName: string };
 
   try {
@@ -40,6 +44,8 @@ export async function PUT(
   response: NextResponse,
   { params }: { params: { id: string } },
 ): Promise<Response> {
+  const session = await requireSession();
+  if (!session) return NextResponse.json({ messge: 'not authorized' }, { status: 401 });
   const body = (await response.json()) as { to: number };
   try {
     const student = await prisma.student.update({

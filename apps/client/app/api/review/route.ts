@@ -1,10 +1,13 @@
 import { prisma } from '@xxx/prism';
 import type { ReviewSubmitType } from '@xxx/types/studentsGroup';
-import type { NextRequest } from 'next/server';
 import { NextResponse } from 'next/server';
-import { tableDistribution } from '../../../utils';
+import type { NextRequest } from 'next/server';
+import { requireSession, tableDistribution } from '../../../utils';
 
 export async function POST(request: NextRequest): Promise<NextResponse> {
+  const session = await requireSession();
+  if (!session) return NextResponse.json({ messge: 'not authorized' }, { status: 401 });
+
   const { teachers, days, group } = (await request.json()) as ReviewSubmitType;
   const students = await prisma.student.findMany({
     where: { groupId: group! },

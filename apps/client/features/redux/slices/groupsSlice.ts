@@ -28,7 +28,6 @@ const groupsSlice = createSlice({
       }
     });
     builder.addCase(addStudentsThunk.fulfilled, (state, action) => {
-      console.log(action.payload);
       const group = state.find((el) => el.id === Number(action.payload.gId));
       if (group) {
         group.students = action.payload.students;
