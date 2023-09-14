@@ -51,7 +51,7 @@ export default function ReviewTable({ review, parentRef }: ReviewTableProps): JS
                   key={teacher.id}
                   data-teacher={teacher.id}
                   data-dayid={review.id}
-                  className={`border border-slate-500 border-opacity-25 text-center p-1 w-1/${
+                  className={`border border-purple-500 border-opacity-25 text-center p-1 w-1/${
                     review.teachers.length + 1
                   }`}
                 >
