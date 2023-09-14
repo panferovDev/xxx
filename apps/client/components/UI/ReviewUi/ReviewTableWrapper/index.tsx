@@ -12,7 +12,7 @@ export default function ReviewTableWrapper(): JSX.Element {
   return (
     <div>
       {review.reviews.map((el) => (
-        <ReviewTable key={el.id} review={el} parentRef={parentRef}/>
+        <ReviewTable key={el.id} review={el} parentRef={parentRef} />
       ))}
     </div>
   );

@@ -52,6 +52,9 @@ const reviewSlice = createSlice({
       if (!fromDay) {
         return;
       }
+      if (!fromDay.data[from.teacherId]) {
+        return;
+      }
       fromDay.data[from.teacherId] = fromDay.data[from.teacherId].filter(
         (student) => student.id !== to.student.id,
       );
@@ -60,6 +63,7 @@ const reviewSlice = createSlice({
         return;
       }
       toDay.data[to.teacherId].push(to.student);
+      toDay.maxStudents += 1;
     },
   },
   extraReducers: (builder) => {
@@ -70,6 +74,5 @@ const reviewSlice = createSlice({
 });
 
 export default reviewSlice.reducer;
-export const {
-  setTeacherAction, deleteTeacherAction, setDaysAction, setGroup, changeDayAction,
-} = reviewSlice.actions;
+export const { setTeacherAction, deleteTeacherAction, setDaysAction, setGroup, changeDayAction } =
+  reviewSlice.actions;
