@@ -1,8 +1,10 @@
 import type { TeacherType } from '@xxx/types/reviewTypes';
 import type { StudentType, TeacherStudentsType } from '@xxx/types/studentsGroup';
+import { getServerSession } from 'next-auth/next';
 import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 import { v4 as uuidv4 } from 'uuid';
+import type { Session } from 'next-auth';
 
 type Person = {
   name: string;
@@ -73,3 +75,11 @@ export function seatPeople(names: string[], seatsCount: number): Person[] {
 
   return seated;
 }
+
+export const requireSession = async (): Promise<Session | null> => {
+  const session = await getServerSession();
+  if (!session) {
+    return null;
+  }
+  return session;
+};
