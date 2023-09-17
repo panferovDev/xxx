@@ -22,7 +22,7 @@ export default function AddStudentsInGroup(): JSX.Element {
 
   const { studentSubmitHandler } = useStGroups();
   return (
-    <Card className="mt-10 hover:border-cyan-50 hover:border-opacity-30">
+    <Card className="mt-10 hover:border-purple-700  hover:border-opacity-30">
       <CardHeader>
         <CardTitle>Добавление студентов</CardTitle>
       </CardHeader>

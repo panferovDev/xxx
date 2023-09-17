@@ -2,6 +2,7 @@ import React from 'react';
 import { Input } from '@xxx/ui-components/Input';
 import TList from './TList';
 import { useAppSelector } from 'apps/client/features/redux/reduxHooks';
+import Titem from './Titem';
 
 export type TeachersProps = {
   submitTeacherHandler: (e: React.FormEvent<HTMLFormElement>) => void;
@@ -20,9 +21,11 @@ function Teachers({ submitTeacherHandler, deleteTeacherHandler }: TeachersProps)
           </div>
         </form>
       </div>
-      {teachers.map((teacher) => (
-        <TList deleteTeacherHandler={deleteTeacherHandler} key={teacher.id} teacher={teacher} />
-      ))}
+      <div className="flex flex-wrap gap-2 mt-4">
+        {teachers.map((teacher) => (
+          <Titem deleteTeacherHandler={deleteTeacherHandler} key={teacher.id} teacher={teacher} />
+        ))}
+      </div>
     </>
   );
 }

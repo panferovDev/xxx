@@ -22,7 +22,7 @@ export default async function RootLayout({
 }): Promise<JSX.Element> {
   const preloadedState = await preloadState();
   return (
-    <html lang="en" className="dark">
+    <html lang="en" className="dark" style={{ colorScheme: 'dark' }}>
       <body className={`${roboto.className}`}>
         <Providers preloadedState={preloadedState}>
           <ThemeProvider attribute="class">
