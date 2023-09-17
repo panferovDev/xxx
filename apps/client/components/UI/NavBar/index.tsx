@@ -5,6 +5,7 @@ import { Button } from '@xxx/ui-components/Button';
 import type { Session } from 'next-auth';
 import { signOut } from 'next-auth/react';
 import Navigation from './Navigation';
+import Theme from '../theme';
 
 export default function NavBar({ session }: { session: Session | null }): JSX.Element {
   const logoutHandler = (): void => {
@@ -28,10 +29,11 @@ export default function NavBar({ session }: { session: Session | null }): JSX.El
           <span className="sr-only">Open main menu</span>
         </button>
         {session && <Navigation />}
-        <div className="hidden w-full md:block md:w-auto" id="navbar-default">
+        <div className="md:flex md:justify-between md:items-center  w-full md:w-auto" id="navbar-default">
           {session && (
             <>
               <span className="mr-2">Привет, {session.user?.name} </span>
+              <Theme />
               <Button onClick={logoutHandler} variant="outline">
                 Logout
               </Button>

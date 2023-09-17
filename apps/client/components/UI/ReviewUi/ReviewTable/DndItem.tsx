@@ -19,8 +19,7 @@ export default function DndItem({ student }: ReviewTableProps): JSX.Element {
       key={student.id}
       drag
       onDragStart={(e, info) => {
-        if (!e.currentTarget) return;
-        const element = e.currentTarget as HTMLElement;
+        const element = e.target as HTMLElement;
         element.style.visibility = 'hidden';
         const pickFrom = document.elementFromPoint(info.point.x, info.point.y);
         const check = pickFrom?.closest('[data-dayid]');
@@ -40,8 +39,7 @@ export default function DndItem({ student }: ReviewTableProps): JSX.Element {
         refFrom.current = { dayId: dayId!, teacherId: teacherId! };
       }}
       onDragEnd={(e, info) => {
-        if (!e.currentTarget) return;
-        const element = e.currentTarget as HTMLElement;
+        const element = e.target as HTMLElement;
         element.style.visibility = 'hidden';
         const droppedOverElement = document.elementFromPoint(info.point.x, info.point.y);
         const check = droppedOverElement?.closest('[data-dayid]');
@@ -74,7 +72,7 @@ export default function DndItem({ student }: ReviewTableProps): JSX.Element {
       dragControls={dragControls}
       animate={controls}
       layout
-      className="hover:cursor-grab"
+      className="hover:cursor-grab hover:rounded rounded"
       dragElastic={0}
       whileHover={{ backgroundColor: '#7C3AED', opacity: 0.3 }}
       whileTap={{ scale: 0.9, cursor: 'grabbing' }}
