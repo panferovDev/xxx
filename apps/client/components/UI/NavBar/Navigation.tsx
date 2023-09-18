@@ -13,7 +13,7 @@ export default function Navigation({
 }: React.HTMLAttributes<HTMLElement>): JSX.Element {
   const pathname = usePathname();
   return (
-    <nav className={cn('flex items-center space-x-4 lg:space-x-6', className)} {...props}>
+    <nav className={cn('flex items-center space-x-4 lg:space-x-6 self-center mx-auto', className)} {...props}>
       <Link href="/" className={pathname === '/' ? 'active' : 'uppercase text-gray-500'}>
         dashboard
       </Link>
