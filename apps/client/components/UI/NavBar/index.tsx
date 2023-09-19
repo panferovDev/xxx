@@ -6,6 +6,7 @@ import type { Session } from 'next-auth';
 import { signOut } from 'next-auth/react';
 import Navigation from './Navigation';
 import Theme from '../theme';
+import MobileMenu from './MobileMenu';
 
 export default function NavBar({ session }: { session: Session | null }): JSX.Element {
   const logoutHandler = (): void => {
@@ -19,6 +20,9 @@ export default function NavBar({ session }: { session: Session | null }): JSX.El
         <span className="self-start text-2xl text-violet-600 font-semibold whitespace-nowrap">
           ElbrusHelper
         </span>
+        <div className="custom:hidden">
+          <MobileMenu />
+        </div>
         <div
           className="hidden flex-1 custom:flex custom:justify-end gap-1 custom:items-center  w-full custom:w-auto"
           id="navbar-default"

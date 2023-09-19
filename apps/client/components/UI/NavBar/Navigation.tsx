@@ -14,21 +14,27 @@ export default function Navigation({
   const pathname = usePathname();
   return (
     <nav className={cn('flex items-center space-x-4 lg:space-x-6 self-center mx-auto', className)} {...props}>
-      <Link href="/" className={pathname === '/' ? 'active' : 'uppercase text-gray-500'}>
+      <Link href="/" className={pathname === '/' ? 'active' : 'uppercase '}>
         dashboard
       </Link>
 
       <Link
         href="/exam"
-        className={pathname === '/exam' ? 'active' : 'uppercase text-gray-500'}
+        className={pathname === '/exam' ? 'active' : 'uppercase '}
       >
         exam
       </Link>
       <Link
         href="/review"
-        className={pathname === '/review' ? 'active' : 'uppercase text-gray-500'}
+        className={pathname === '/review' ? 'active' : 'uppercase '}
       >
         review
+      </Link>
+      <Link
+        href="/pairs"
+        className={pathname === '/pairs' ? 'active' : 'uppercase '}
+      >
+        pairs
       </Link>
     </nav>
   );
