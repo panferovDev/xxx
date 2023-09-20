@@ -1,10 +1,11 @@
-import { useCallback } from 'react';
+import { useCallback, useEffect } from 'react';
 import { useAppDispatch } from '../features/redux/reduxHooks';
 import {
   deleteTeacherAction,
   setTeacherAction,
   setDaysAction,
   setGroup,
+  clearReviewAction,
 } from '../features/redux/slices/reviewSlice';
 
 export default function useReview(): {
@@ -14,6 +15,7 @@ export default function useReview(): {
   setGroupHandler: (data: number | null) => void;
 } {
   const dispatch = useAppDispatch();
+
 
   const submitTeacherHandler = useCallback(
     (e: React.FormEvent<HTMLFormElement>): void => {
@@ -29,6 +31,13 @@ export default function useReview(): {
   const setDays = useCallback(
     (arr: string[]): void => {
       dispatch(setDaysAction(arr));
+    },
+    [dispatch],
+  );
+
+  useEffect(
+    () => (): void => {
+      dispatch(clearReviewAction());
     },
     [dispatch],
   );

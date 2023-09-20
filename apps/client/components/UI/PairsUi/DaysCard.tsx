@@ -11,18 +11,10 @@ import {
 export default function DaysCard(): JSX.Element {
   return (
     <Card>
-      <CardHeader>
-        Расписание на неделю:
-      </CardHeader>
-      <CardContent>
-        <ul className="space-y-5">
-          <li>Пн</li>
-          <li>Вт</li>
-          <li>Ср</li>
-          <li>Чт</li>
-          <li>Пт</li>
-        </ul>
-      </CardContent>
+      <CardHeader>Расписание на неделю:</CardHeader>
+      <div className="flex justify-center gap-6">
+        <div className=" bg-purple-800 rounded-full p-3 mb-10 cursor-pointer">Пн</div>
+      </div>
     </Card>
   );
 }

@@ -25,6 +25,15 @@ const reviewSlice = createSlice({
       state.days = action.payload;
     },
 
+    clearReviewAction() {
+      return {
+        teachers: [],
+        days: [],
+        group: null,
+        reviews: [],
+      };
+    },
+
     deleteTeacherAction(state, action: PayloadAction<string>) {
       state.teachers = state.teachers.filter((teacher) => teacher.id !== action.payload);
     },
@@ -92,5 +101,10 @@ const reviewSlice = createSlice({
 
 export default reviewSlice.reducer;
 export const {
-  setTeacherAction, deleteTeacherAction, setDaysAction, setGroup, changeDayAction,
+  setTeacherAction,
+  deleteTeacherAction,
+  setDaysAction,
+  setGroup,
+  changeDayAction,
+  clearReviewAction,
 } = reviewSlice.actions;
