@@ -10,6 +10,7 @@ import { useAppDispatch } from '../features/redux/reduxHooks';
 import {
   changeGroupThunk,
   deleteStudentThunk,
+  repeatStudentThunk,
   updateNameStudentThunk,
 } from '../features/redux/actions/groupActions';
 
@@ -18,6 +19,7 @@ export default function useChangeStGr(): {
   studentClickSubmit: (formRef: React.RefObject<HTMLFormElement>) => void;
   studentDeleteHandler: (delData: DeleteStudentType) => void;
   movedStudentHandler: (data: Omit<MovedStudentType, 'from'>) => void;
+  repeatStudentHandler: (data: DeleteStudentType) => void;
 } {
   const dispatch = useAppDispatch();
   const { toast } = useToast();
@@ -91,10 +93,19 @@ export default function useChangeStGr(): {
     [dispatch],
   );
 
+  const repeatStudentHandler = useCallback(
+    (data: DeleteStudentType): void => {
+      console.log('repeatStudentHandler');
+      void dispatch(repeatStudentThunk(data));
+    },
+    [dispatch],
+  );
+
   return {
     studentSubmit,
     studentClickSubmit,
     studentDeleteHandler,
     movedStudentHandler,
+    repeatStudentHandler,
   };
 }

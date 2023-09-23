@@ -1,16 +1,12 @@
 import type { DeleteStudentType, GroupType, StudentType } from '@xxx/types/studentsGroup';
 import React, { useRef } from 'react';
 import { Input } from '@xxx/ui-components/Input';
+import { Checkbox } from '@xxx/ui-components/Checkbox';
 import {
   Menubar,
-  MenubarCheckboxItem,
   MenubarContent,
   MenubarItem,
   MenubarMenu,
-  MenubarRadioGroup,
-  MenubarRadioItem,
-  MenubarSeparator,
-  MenubarShortcut,
   MenubarSub,
   MenubarSubContent,
   MenubarSubTrigger,
@@ -26,8 +22,13 @@ export type StudentItemProps = {
 function StudentItem({ student }: StudentItemProps): JSX.Element {
   const formRef = useRef<HTMLFormElement>(null);
   const allGroups = useAppSelector((state) => state.groups);
-  const { studentClickSubmit, studentDeleteHandler, studentSubmit, movedStudentHandler } =
-    useChangeStGr();
+  const {
+    studentClickSubmit,
+    studentDeleteHandler,
+    studentSubmit,
+    movedStudentHandler,
+    repeatStudentHandler,
+  } = useChangeStGr();
 
   return (
     <div className="flex justify-between items-center mt-3">
@@ -36,6 +37,19 @@ function StudentItem({ student }: StudentItemProps): JSX.Element {
         <Input name="gId" defaultValue={student.groupId} type="hidden" />
         <Input name="updName" className="w-100" defaultValue={student.name} />
       </form>
+      <div className="flex justify-center items-center gap-2">
+        <Checkbox
+          id="repeat"
+          checked={student.repeat}
+          onClick={() => repeatStudentHandler({ sId: student.id, gId: student.groupId })}
+        />
+        <label
+          htmlFor="repeat"
+          className="text-sm leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+        >
+          Повтор
+        </label>
+      </div>
       <div className="flex justify-end mr-15">
         <Menubar>
           <MenubarMenu>

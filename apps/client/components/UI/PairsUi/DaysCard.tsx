@@ -7,13 +7,18 @@ import {
   CardHeader,
   CardTitle,
 } from '@xxx/ui-components/Card';
+import { PersonIcon } from '@radix-ui/react-icons';
 
 export default function DaysCard(): JSX.Element {
   return (
     <Card>
       <CardHeader>Расписание на неделю:</CardHeader>
-      <div className="flex justify-center gap-6">
-        <div className=" bg-purple-800 rounded-full p-3 mb-10 cursor-pointer">Пн</div>
+      <div className="flex justify-start flex-col ml-3 mb-3 gap-1">
+        <div>Пн</div>
+        <div>Вт</div>
+        <div>Ср</div>
+        <div>Чт</div>
+        <div>Пт</div>
       </div>
     </Card>
   );

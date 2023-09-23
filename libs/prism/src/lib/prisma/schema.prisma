@@ -20,6 +20,7 @@ model Student {
   name String
   groupId Int 
   group Group @relation(fields: [groupId], references: [id], onDelete: Cascade)
+  repeat Boolean @default(false)
   @@unique([name, groupId])
 }
 

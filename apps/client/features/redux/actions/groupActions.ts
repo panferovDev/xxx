@@ -12,6 +12,7 @@ import {
   addStudentsService,
   changeGroupService,
   deleteStudentService,
+  repeatStudentService,
   updateStudentService,
 } from 'apps/client/services/studentService';
 
@@ -49,4 +50,9 @@ export const changeGroupThunk = createAsyncThunk<MovedStudentType, Omit<MovedStu
       student: data,
       to: move.to,
     })),
+);
+
+export const repeatStudentThunk = createAsyncThunk<DeleteStudentType, DeleteStudentType>(
+  'group/repeatStudent',
+  async (studentData) => repeatStudentService(studentData).then(() => studentData),
 );

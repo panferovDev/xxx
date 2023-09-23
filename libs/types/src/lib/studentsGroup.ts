@@ -1,4 +1,3 @@
-import { type } from 'os';
 import { TeacherType } from './reviewTypes';
 
 export type groupAndStydentsFormType = {
@@ -15,6 +14,7 @@ export type GroupType = {
 export type StudentType = {
   id: number;
   name: string;
+  repeat: boolean;
   groupId: number;
 };
 export type GroupWithStudentsType = {
@@ -41,6 +41,7 @@ export type MovedStudentType = {
 };
 
 export type ReviewSliceType = {
+  showRepeat: boolean;
   teachers: TeacherType[];
   group: null | number;
   days: string[];

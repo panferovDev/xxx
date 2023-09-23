@@ -7,7 +7,7 @@ import GroupItem from './GroupItem';
 function AllGroupsCard(): JSX.Element {
   const groups = useAppSelector((state) => state.groups);
   return (
-    <Card className="hover:border-purple-700  hover:border-opacity-30 h-full overflow-auto">
+    <Card className="hover:border-purple-700 md:max-h-[655px] md:overflow-auto  hover:border-opacity-30 h-full overflow-auto">
       <CardHeader>
         <CardTitle>Группы</CardTitle>
       </CardHeader>
