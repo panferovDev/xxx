@@ -21,6 +21,7 @@ model Student {
   groupId Int 
   group Group @relation(fields: [groupId], references: [id], onDelete: Cascade)
   repeat Boolean @default(false)
+  subgroup Subgroup[]
   @@unique([name, groupId])
 }
 
@@ -29,4 +30,30 @@ model User {
   name String
   email String @unique
   avatar String?
+}
+
+model PairDays {
+  id Int @id @default(autoincrement())
+  dayName String
+  dayType String
+  dayNumber Int
+}
+
+model Schedule {
+  id Int @id @default(autoincrement())
+  dayId Int
+  groupId Int
+  date DateTime
+  type String
+  subgroup Subgroup[]
+  @@unique([groupId, date])
+}
+
+model Subgroup {
+  id Int @id @default(autoincrement())
+  scheduleId Int
+  schedule Schedule @relation(fields: [scheduleId], references: [id], onDelete: Cascade)
+  studentId Int
+  student Student @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  @@unique([scheduleId, studentId])
 }

@@ -83,3 +83,30 @@ export const requireSession = async (): Promise<Session | null> => {
   }
   return session;
 };
+
+export function getCurrentWeekDates(
+  weekOffset = 0,
+  data: { [id: number]: string },
+  groupid: number,
+): { dayId: number; date: Date; groupId: number; type: string }[] {
+  const today = new Date();
+  const day = today.getDay();
+  const diff = today.getDate() - day + (day === 0 ? -6 : 1) + 7 * weekOffset;
+
+  const weekDates = [];
+
+  for (let i = 0; i < 5; i += 1) {
+    const date = new Date(today);
+    date.setDate(diff + i);
+    if (data[i + 1]) {
+      weekDates.push({
+        dayId: i + 1,
+        groupId: groupid,
+        date: new Date(date.toLocaleDateString('ru-Ru').split('.').reverse().join('-')),
+        type: data[i + 1],
+      });
+    }
+  }
+
+  return weekDates;
+}
