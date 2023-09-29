@@ -20,9 +20,9 @@ export async function GET(
   }, {});
 
   const dates = getCurrentWeekDates(Number(params.weekoffset), schedule, Number(params.groupid));
-  const chDates = await prisma.schedule.createMany({
-    data: dates,
-    skipDuplicates: true,
-  });
-  return NextResponse.json(chDates, { status: 200 });
+  // const chDates = await prisma.schedule.createMany({
+  //   data: dates,
+  //   skipDuplicates: true,
+  // });
+  return NextResponse.json(dates, { status: 200 });
 }
