@@ -1,28 +1,40 @@
-/*
-  Warnings:
+-- CreateTable
+CREATE TABLE "Group" (
+    "id" SERIAL NOT NULL,
+    "name" TEXT NOT NULL,
 
-  - You are about to drop the column `scheduleId` on the `Subgroup` table. All the data in the column will be lost.
-  - You are about to drop the column `studentId` on the `Subgroup` table. All the data in the column will be lost.
-  - You are about to drop the `Schedule` table. If the table is not empty, all the data it contains will be lost.
-  - Added the required column `gadId` to the `Subgroup` table without a default value. This is not possible if the table is not empty.
+    CONSTRAINT "Group_pkey" PRIMARY KEY ("id")
+);
 
-*/
--- DropForeignKey
-ALTER TABLE "Subgroup" DROP CONSTRAINT "Subgroup_scheduleId_fkey";
+-- CreateTable
+CREATE TABLE "Student" (
+    "id" SERIAL NOT NULL,
+    "name" TEXT NOT NULL,
+    "groupId" INTEGER NOT NULL,
+    "repeat" BOOLEAN NOT NULL DEFAULT false,
 
--- DropForeignKey
-ALTER TABLE "Subgroup" DROP CONSTRAINT "Subgroup_studentId_fkey";
+    CONSTRAINT "Student_pkey" PRIMARY KEY ("id")
+);
 
--- DropIndex
-DROP INDEX "Subgroup_scheduleId_studentId_key";
+-- CreateTable
+CREATE TABLE "User" (
+    "id" SERIAL NOT NULL,
+    "name" TEXT NOT NULL,
+    "email" TEXT NOT NULL,
+    "avatar" TEXT,
 
--- AlterTable
-ALTER TABLE "Subgroup" DROP COLUMN "scheduleId",
-DROP COLUMN "studentId",
-ADD COLUMN     "gadId" INTEGER NOT NULL;
+    CONSTRAINT "User_pkey" PRIMARY KEY ("id")
+);
 
--- DropTable
-DROP TABLE "Schedule";
+-- CreateTable
+CREATE TABLE "PairDays" (
+    "id" SERIAL NOT NULL,
+    "dayName" TEXT NOT NULL,
+    "dayType" TEXT NOT NULL,
+    "dayNumber" INTEGER NOT NULL,
+
+    CONSTRAINT "PairDays_pkey" PRIMARY KEY ("id")
+);
 
 -- CreateTable
 CREATE TABLE "Days" (
@@ -43,6 +55,14 @@ CREATE TABLE "GroupActivityDays" (
 );
 
 -- CreateTable
+CREATE TABLE "Subgroup" (
+    "id" SERIAL NOT NULL,
+    "gadId" INTEGER NOT NULL,
+
+    CONSTRAINT "Subgroup_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
 CREATE TABLE "Pairs" (
     "id" SERIAL NOT NULL,
     "studentId" INTEGER NOT NULL,
@@ -52,7 +72,19 @@ CREATE TABLE "Pairs" (
 );
 
 -- CreateIndex
+CREATE UNIQUE INDEX "Group_name_key" ON "Group"("name");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "Student_name_groupId_key" ON "Student"("name", "groupId");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
+
+-- CreateIndex
 CREATE UNIQUE INDEX "Days_day_key" ON "Days"("day");
+
+-- AddForeignKey
+ALTER TABLE "Student" ADD CONSTRAINT "Student_groupId_fkey" FOREIGN KEY ("groupId") REFERENCES "Group"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "GroupActivityDays" ADD CONSTRAINT "GroupActivityDays_groupId_fkey" FOREIGN KEY ("groupId") REFERENCES "Group"("id") ON DELETE CASCADE ON UPDATE CASCADE;

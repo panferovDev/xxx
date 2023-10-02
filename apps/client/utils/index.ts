@@ -110,3 +110,51 @@ export function getCurrentWeekDates(
 
   return weekDates;
 }
+
+export const getPairsDays = (inputDate: string, dayNums: number[]): Date[] => {
+  const date = new Date(inputDate);
+  const result = [];
+  const dayOfWeek = date.getUTCDay();
+  const offset = dayOfWeek === 0 ? -6 : 1 - dayOfWeek;
+  date.setDate(date.getDate() + offset);
+
+  while (result.length < 15) {
+    if (date.getUTCDay() !== 0 && date.getUTCDay() !== 6) {
+      result.push(new Date(date));
+    }
+    date.setDate(date.getDate() + 1);
+  }
+
+  return result.filter((day) => dayNums.includes(day.getDay()));
+};
+
+export const generateSubgroups = (
+  num: number,
+  groupActivityDays: { type: string; id: number }[],
+): {
+  pairs: { gadId: number }[];
+  groups: { gadId: number }[];
+} => {
+  const subgroups: {
+    pairs: { gadId: number }[];
+    groups: { gadId: number }[];
+  } = {
+    pairs: [],
+    groups: [],
+  };
+  for (const gropuActivity of groupActivityDays) {
+    if (gropuActivity.type === 'пары') {
+      const maxStudents = Math.ceil(num / 2);
+      for (let i = 0; i < maxStudents; i += 1) {
+        subgroups.pairs.push({ gadId: gropuActivity.id });
+      }
+    }
+    if (gropuActivity.type === 'групповой') {
+      const maxStudents = Math.ceil(num / 4);
+      for (let i = 0; i < maxStudents; i += 1) {
+        subgroups.groups.push({ gadId: gropuActivity.id });
+      }
+    }
+  }
+  return subgroups;
+};

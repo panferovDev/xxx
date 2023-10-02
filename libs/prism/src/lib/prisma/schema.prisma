@@ -23,7 +23,6 @@ model Student {
   groupId Int 
   group Group @relation(fields: [groupId], references: [id], onDelete: Cascade)
   repeat Boolean @default(false)
-  pairs Pairs[]
   @@unique([name, groupId])
 }
 
@@ -58,6 +57,7 @@ model GroupActivityDays {
   day Days @relation(fields: [dayId], references: [id], onDelete: Cascade)
   type String
   subgroup Subgroup[]
+  @@unique([groupId, dayId, type])
 }
 
 
@@ -65,13 +65,5 @@ model Subgroup {
   id Int @id @default(autoincrement())
   gadId Int
   groupActivityDays GroupActivityDays @relation(fields: [gadId], references: [id], onDelete: Cascade)
-  pairs Pairs[]
-}
-
-model Pairs {
-   id Int @id @default(autoincrement())
-   studentId Int
-   students Student @relation(fields: [studentId], references: [id], onDelete: Cascade)
-   subgroupId Int
-   subgroup Subgroup @relation(fields: [subgroupId], references: [id], onDelete: Cascade)
+  subgrups Json
 }
