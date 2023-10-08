@@ -129,32 +129,45 @@ export const getPairsDays = (inputDate: string, dayNums: number[]): Date[] => {
 };
 
 export const generateSubgroups = (
-  num: number,
-  groupActivityDays: { type: string; id: number }[],
+  groupActivityDays: { type: string; id: number },
+  students: StudentType[],
 ): {
-  pairs: { gadId: number }[];
-  groups: { gadId: number }[];
+  gadId: number;
+  subgrups: {
+    id: string;
+    students: StudentType[];
+  }[];
 } => {
-  const subgroups: {
-    pairs: { gadId: number }[];
-    groups: { gadId: number }[];
-  } = {
-    pairs: [],
-    groups: [],
-  };
-  for (const gropuActivity of groupActivityDays) {
-    if (gropuActivity.type === 'пары') {
-      const maxStudents = Math.ceil(num / 2);
-      for (let i = 0; i < maxStudents; i += 1) {
-        subgroups.pairs.push({ gadId: gropuActivity.id });
-      }
-    }
-    if (gropuActivity.type === 'групповой') {
-      const maxStudents = Math.ceil(num / 4);
-      for (let i = 0; i < maxStudents; i += 1) {
-        subgroups.groups.push({ gadId: gropuActivity.id });
-      }
-    }
+  const shuffledStudents = arrShuffle(students);
+  let studentsPerSubgroup;
+
+  switch (groupActivityDays.type) {
+    case 'пары':
+      studentsPerSubgroup = 2;
+      break;
+    case 'групповой':
+      studentsPerSubgroup = 4;
+      break;
+    default:
+      throw new Error(`Unknown group activity type: ${groupActivityDays.type}`);
   }
-  return subgroups;
+
+  const splitIntoSubgroups = (array: StudentType[], size: number): StudentType[][] => {
+    const result = [];
+
+    for (let i = 0; i < array.length; i += size) {
+      result.push(array.slice(i, i + size));
+    }
+    return result;
+  };
+
+  const studentSubgroups = splitIntoSubgroups(shuffledStudents, studentsPerSubgroup);
+
+  return {
+    gadId: groupActivityDays.id,
+    subgrups: studentSubgroups.map((subgroup) => ({
+      id: uuidv4(),
+      students: subgroup,
+    })),
+  };
 };
