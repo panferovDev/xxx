@@ -1,7 +1,6 @@
 import { prisma } from '@xxx/prism';
 import { NextResponse, type NextRequest } from 'next/server';
 import type { Prisma } from '@prisma/client';
-import type { StudentType } from '@xxx/types/studentsGroup';
 import { requireSession, getPairsDays, generateSubgroups } from '../../../../utils';
 
 export async function POST(
@@ -23,6 +22,10 @@ export async function POST(
       groupId: Number(params.groupid),
     },
   });
+
+  if (!students.length) {
+    return NextResponse.json({}, { status: 404 });
+  }
 
   const pairDates = getPairsDays('2023-09-30', daysShedule).map((date) => ({ day: date }));
 
@@ -111,22 +114,34 @@ export async function GET(
     },
   });
 
+  if (schedule.some((day) => day.groupActivityDays.length === 0)) {
+    return NextResponse.json({}, { status: 404 });
+  }
+
+  const result = schedule.map((day) => ({
+    ...day,
+    groupActivityDays: {
+      ...day.groupActivityDays[0],
+      subgroup: day.groupActivityDays[0].subgroup[0],
+    },
+    day: new Date(day.day).toLocaleDateString('ru-Ru', { weekday: 'long' }),
+  }));
+
   const weeksAndDays: {
     week: string;
     days: {
-      day: string;
-      groupActivityDays: ({
+      groupActivityDays: {
         subgroup: {
           id: number;
           gadId: number;
-          subgrups: Prisma.JsonValue ;
-        }[];
-      } & {
+          subgrups: Prisma.JsonValue;
+        };
         id: number;
         groupId: number;
         dayId: number;
         type: string;
-      })[];
+      };
+      day: string;
       id: number;
     }[];
   }[] = [];
@@ -134,12 +149,9 @@ export async function GET(
   for (let i = 0; i < pairDays.length; i += 1) {
     weeksAndDays.push({
       week: `Неделя ${i + 1}`,
-      days: schedule.splice(0, pairDays.length).map((day) => ({
-        ...day,
-        day: new Date(day.day).toLocaleDateString('ru-Ru', { weekday: 'long' }),
-      })),
+      days: result.splice(0, pairDays.length),
     });
   }
 
-  return NextResponse.json({ weeksAndDays: weeksAndDays[2] }, { status: 200 });
+  return NextResponse.json(weeksAndDays, { status: 200 });
 }

@@ -43,7 +43,7 @@ export default function useChangeStGr(): {
           });
         });
     },
-    [dispatch],
+    [dispatch, toast],
   );
   const studentClickSubmit = useCallback(
     (formRef: React.RefObject<HTMLFormElement>): void => {
