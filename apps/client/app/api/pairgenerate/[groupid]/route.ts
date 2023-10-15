@@ -7,6 +7,7 @@ export async function POST(
   request: NextRequest,
   { params }: { params: { groupid: string } },
 ): Promise<Response> {
+  // находим все парные дни
   const schedule = await prisma.pairDays.findMany({
     where: {
       dayType: {
@@ -34,6 +35,11 @@ export async function POST(
     skipDuplicates: true,
   });
 
+  await prisma.groupActivityDays.deleteMany({
+    where: {
+      groupId: Number(params.groupid),
+    },
+  });
   const currentDates = await prisma.days.findMany({
     where: {
       day: {
@@ -56,9 +62,9 @@ export async function POST(
   await prisma.groupActivityDays.deleteMany({
     where: {
       groupId: Number(params.groupid),
-      dayId: {
-        in: currentDates.map((date) => date.id),
-      },
+      // dayId: {
+      //   in: currentDates.map((date) => date.id),
+      // },
     },
   });
 
@@ -115,7 +121,7 @@ export async function GET(
   });
 
   if (schedule.some((day) => day.groupActivityDays.length === 0)) {
-    return NextResponse.json({}, { status: 404 });
+    return NextResponse.json(schedule, { status: 404 });
   }
 
   const result = schedule.map((day) => ({

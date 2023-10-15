@@ -4,7 +4,7 @@ const { fontFamily } = require('tailwindcss/defaultTheme');
 const { createGlobPatternsForDependencies } = require('@nx/react/tailwind');
 
 module.exports = {
-  darkMode: ['media'],
+  darkMode: ['class'],
   content: [
     join(__dirname, '{src,pages,components,app}/**/*!(*.stories|*.spec).{ts,tsx,html}'),
     ...createGlobPatternsForDependencies(__dirname),
@@ -88,6 +88,16 @@ module.exports = {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
         typing: 'typing 6s steps(20) infinite alternate, blink .7s infinite',
+        keyframes: {
+          'spin-reverse': {
+            to: {
+              transform: 'rotate(-360deg)',
+            },
+          },
+        },
+        animation: {
+          'spin-reverse': 'spin-reverse 1s linear infinite',
+        },
       },
     },
     fontFamily: {
