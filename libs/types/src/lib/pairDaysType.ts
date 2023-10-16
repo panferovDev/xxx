@@ -60,3 +60,18 @@ export type PairsDayPropsType = {
     id: number;
   };
 };
+
+export type Subgroups = {
+  gadId: number;
+  subgrups: {
+    id: string;
+    students: StudentType[];
+  }[];
+};
+
+export type SubgroupRefreshType = {
+  id: number;
+  type: string;
+  groupId: number;
+  weekDay: string;
+};

@@ -1,4 +1,10 @@
-import type { PairDaysType, PairDaysChaneType, PairsData } from '@xxx/types/pairDaysType';
+import type {
+  PairDaysType,
+  PairDaysChaneType,
+  PairsData,
+  Subgroups,
+  SubgroupRefreshType,
+} from '@xxx/types/pairDaysType';
 import type { AxiosResponse } from 'axios';
 import { apiService } from './apiService';
 
@@ -13,3 +19,10 @@ export const getPairsService = (id: string): Promise<PairsData> =>
 
 export const generateGroupPairsService = (id: string): Promise<AxiosResponse> =>
   apiService.post(`/pairgenerate/${id}`);
+
+export const refreshDayService = (
+  data: SubgroupRefreshType,
+): Promise<{ subgroups: Subgroups } & SubgroupRefreshType> =>
+  apiService
+    .patch<Subgroups>('/pairgenerate/day', data)
+    .then((res) => ({ ...data, subgroups: res.data }));

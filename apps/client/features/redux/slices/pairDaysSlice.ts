@@ -5,6 +5,7 @@ import {
   changeDayThunk,
   getGroupPairsThunk,
   generateGroupPairsThunk,
+  refreshDayThunk,
 } from '../actions/pairDaysActions';
 
 const pairDaysSlice = createSlice({
@@ -47,6 +48,19 @@ const pairDaysSlice = createSlice({
     builder.addCase(generateGroupPairsThunk.fulfilled, (state, action) => {
       state.selectedGroup = null;
       state.selectedGroup = action.payload;
+    });
+
+    builder.addCase(refreshDayThunk.fulfilled, (state, action) => {
+      console.log(action.payload.subgroups);
+      const day = state.groupPairs.find((el) => el.week === action.payload.weekDay);
+      if (day) {
+        const dayGroup = day.days.find(
+          (el) => el.groupActivityDays.subgroup.id === action.payload.id,
+        );
+        if (dayGroup) {
+          dayGroup.groupActivityDays.subgroup.subgrups = action.payload.subgroups.subgrups;
+        }
+      }
     });
   },
 });

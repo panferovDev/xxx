@@ -1,15 +1,14 @@
 import { prisma } from '@xxx/prism';
 import { NextResponse, type NextRequest } from 'next/server';
-import type { Prisma } from '@prisma/client';
 import { requireSession, generateSubgroups } from '../../../../utils';
 
 export async function PATCH(request: NextRequest): Promise<Response> {
-  const { subgroupId, type, groupId } = (await request.json()) as {
-    dayId: string;
+  const { id, type, groupId } = (await request.json()) as {
+    id: string;
     type: string;
     groupId: string;
   };
-
+  console.log('----->>>', id, type, groupId);
   const students = await prisma.student.findMany({
     where: {
       groupId: Number(groupId),
@@ -26,7 +25,7 @@ export async function PATCH(request: NextRequest): Promise<Response> {
   const subgroups = generateSubgroups(groupActivityDays, students);
 
   await prisma.subgroup.update({
-    where: { id: Number(subgroupId) },
+    where: { id: Number(id) },
     data: {
       subgrups: subgroups.subgrups,
     },
