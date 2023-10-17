@@ -146,7 +146,7 @@ export const generateSubgroups = (
       studentsPerSubgroup = 2;
       break;
     case 'групповой':
-      studentsPerSubgroup = 4;
+      studentsPerSubgroup = shuffledStudents.length % 3 === 0 ? 3 : 4;
       break;
     default:
       throw new Error(`Unknown group activity type: ${groupActivityDays.type}`);
