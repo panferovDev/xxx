@@ -8,7 +8,6 @@ export async function PATCH(request: NextRequest): Promise<Response> {
     type: string;
     groupId: string;
   };
-  console.log('----->>>', id, type, groupId);
   const students = await prisma.student.findMany({
     where: {
       groupId: Number(groupId),

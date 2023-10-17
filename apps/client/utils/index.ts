@@ -139,24 +139,28 @@ export const generateSubgroups = (
   }[];
 } => {
   const shuffledStudents = arrShuffle(students);
-  let studentsPerSubgroup;
+  let studentsPerSubgroup = 0;
 
   switch (groupActivityDays.type) {
     case 'пары':
       studentsPerSubgroup = 2;
       break;
     case 'групповой':
-      studentsPerSubgroup = shuffledStudents.length % 4 === 0 ? 4 : 3;
+      studentsPerSubgroup = 4;
       break;
     default:
       throw new Error(`Unknown group activity type: ${groupActivityDays.type}`);
   }
 
   const splitIntoSubgroups = (array: StudentType[], size: number): StudentType[][] => {
-    const result = [];
+    const result: StudentType[][] = [];
+    const k = Math.ceil(array.length / size);
 
-    for (let i = 0; i < array.length; i += size) {
-      result.push(array.slice(i, i + size));
+    for (let i = 0; i < k; i += 1) {
+      result.push([]);
+    }
+    for (let i = 0; i < array.length; i += 1) {
+      result[i % k].push(array[i]);
     }
     return result;
   };
