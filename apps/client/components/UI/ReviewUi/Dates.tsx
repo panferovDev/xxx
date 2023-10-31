@@ -1,8 +1,9 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, use } from 'react';
 import { Calendar } from '@xxx/ui-components/Calendar';
 import { ru } from 'date-fns/locale';
+import { useAppSelector } from 'apps/client/features/redux/reduxHooks';
 
 export type DatesProps = {
   setDays: (arr: string[]) => void;
@@ -10,7 +11,14 @@ export type DatesProps = {
 
 export default function Dates({ setDays }: DatesProps): JSX.Element {
   const [dates, setDates] = useState<Date[] | undefined>([]);
+  const choosenDates = useAppSelector((state) => state.review.days);
   useEffect(() => {
+    if (choosenDates.length === 0 && dates?.length !== 0) {
+      setDates([]);
+    }
+  }, [choosenDates]);
+  
+  useEffect(() => { 
     if (dates) {
       setDays(
         dates.map(
