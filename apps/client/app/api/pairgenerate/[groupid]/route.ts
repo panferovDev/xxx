@@ -7,6 +7,8 @@ export async function POST(
   request: NextRequest,
   { params }: { params: { groupid: string } },
 ): Promise<Response> {
+  const session = await requireSession();
+  if (!session) return NextResponse.json({ messge: 'not authorized' }, { status: 401 });
   // находим все парные дни
   const schedule = await prisma.pairDays.findMany({
     where: {
@@ -99,6 +101,8 @@ export async function GET(
   request: NextRequest,
   { params }: { params: { groupid: string } },
 ): Promise<Response> {
+  const session = await requireSession();
+  if (!session) return NextResponse.json({ messge: 'not authorized' }, { status: 401 });
   const pairDays = await prisma.pairDays.findMany({
     where: {
       dayType: {

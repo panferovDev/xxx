@@ -19,7 +19,7 @@ export default function DaysCard(): JSX.Element {
             : pairDays.map((day) => (
               <div key={day.id} className="flex flex-row items-center gap-4">
                 <span>{day.dayName}</span>
-                <RadioGroup onValueChange={(value) => changeDayHandler(value, day.id)} defaultValue={day.dayType} className="flex flex-row">
+                <RadioGroup disabled onValueChange={(value) => changeDayHandler(value, day.id)} defaultValue={day.dayType} className="flex flex-row">
                   <div className="flex  space-x-2">
                     <RadioGroupItem value="пары" id="r1" />
                     <Label htmlFor="r1">пары</Label>

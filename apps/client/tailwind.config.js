@@ -4,7 +4,7 @@ const { fontFamily } = require('tailwindcss/defaultTheme');
 const { createGlobPatternsForDependencies } = require('@nx/react/tailwind');
 
 module.exports = {
-  darkMode: ['class'],
+  darkMode: 'class',
   content: [
     join(__dirname, '{src,pages,components,app}/**/*!(*.stories|*.spec).{ts,tsx,html}'),
     ...createGlobPatternsForDependencies(__dirname),
@@ -63,7 +63,7 @@ module.exports = {
         sm: 'calc(var(--radius) - 4px)',
       },
       fontFamily: {
-        sans: ['var(--font-sans)', ...fontFamily.sans],
+        sans: ['var(--font-sans)', ...fontFamily.sans, 'Roboto', 'Arial', 'sans-serif'],
       },
       keyframes: {
         'accordion-down': {
@@ -83,26 +83,18 @@ module.exports = {
             width: '100%',
           },
         },
+        'spin-reverse': {
+          to: {
+            transform: 'rotate(-360deg)',
+          },
+        },
       },
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
         typing: 'typing 6s steps(20) infinite alternate, blink .7s infinite',
-        keyframes: {
-          'spin-reverse': {
-            to: {
-              transform: 'rotate(-360deg)',
-            },
-          },
-        },
-        animation: {
-          'spin-reverse': 'spin-reverse 1s linear infinite',
-        },
+        'spin-reverse': 'spin-reverse 1s linear infinite',
       },
-    },
-    fontFamily: {
-      sans: ['Roboto', 'Arial', 'sans-serif'],
-      // ... остальные шрифты
     },
   },
   plugins: [require('tailwindcss-animate')],

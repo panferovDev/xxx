@@ -3,6 +3,9 @@ import { NextResponse, type NextRequest } from 'next/server';
 import { requireSession, generateSubgroups } from '../../../../utils';
 
 export async function PATCH(request: NextRequest): Promise<Response> {
+  const session = await requireSession();
+  if (!session) return NextResponse.json({ messge: 'not authorized' }, { status: 401 });
+
   const { id, type, groupId } = (await request.json()) as {
     id: string;
     type: string;

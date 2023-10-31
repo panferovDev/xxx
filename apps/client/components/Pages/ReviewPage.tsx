@@ -19,7 +19,7 @@ export default function ReviewPage(): JSX.Element {
       <ShowRepeat />
 
       <div className="flex md:flex-row flex-col gap-5 mb-10">
-        <div className="w-12/12 md:w-9/12">
+        <div className="w-12/12  md:w-9/12">
           <ReviewTableWrapper />
         </div>
         <div className="w-12/12 md:w-3/12">
