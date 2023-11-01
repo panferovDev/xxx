@@ -12,7 +12,7 @@ export default function PairWeekDay({
   const { refreshDay } = useDayRefresh();
 
   return (
-    <div className="flex group  flex-col relative sm:flex-row gap-1 w-full border border-purple-700 border-opacity-30">
+    <div className="grid grid-cols-1  md:grid-cols-[1fr,5fr] relative gap-1 w-full group border border-purple-700 border-opacity-30">
       <div className=" opacity-0 transition-opacity duration-400 group-hover:opacity-100 absolute bg-white dark:bg-slate-950 top-[-14px] rounded-lg right-[-7px] w-6 h-6 text-orange-700 text-opacity-70 hover:text-opacity-100 cursor-pointer">
         <RefreshCcw
           size={25}
@@ -28,14 +28,14 @@ export default function PairWeekDay({
           }}
         />
       </div>
-      <div className="flex justify-center border-r border-purple-700 border-opacity-30 w-full sm:w-2/12">
+      <div className="flex items-center justify-center border-purple-700 border-opacity-30 ">
         <span className="text-lg self-center font-semibold">{dayGroups.day}</span>
       </div>
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 w-full sm:w-10/12 p-3">
+      <div className="grid grid-cols-1 gap-3 md:grid-cols-3 p-2">
         {dayGroups.groupActivityDays.subgroup.subgrups.map((subgroup, index) => (
           <div
             key={subgroup.id}
-            className="flex flex-col gap-2 my-1 dark:bg-purple-500 dark:bg-opacity-10 bg-purple-100 rounded-md p-2 relative"
+            className="flex flex-col dark:bg-purple-500 dark:bg-opacity-10 bg-purple-100 rounded-md p-2 relative"
           >
             <span className="absolute top-0 left-2 text-orange-500">{index + 1}</span>
             <ul className="list-inside list-decimal p-1">

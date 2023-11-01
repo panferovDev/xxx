@@ -7,7 +7,7 @@ import StudentLink from '../StudentsLink';
 export default function PairsScheduleWrap(): JSX.Element {
   const schedule = useAppSelector((state) => state.pairDays.groupPairs);
   return (
-    <div className="flex md:flex-col flex-row mb-10">
+    <div className="flex flex-col mb-10">
       <StudentLink />
       {schedule.map((week) => (
         <div key={week.week} className="flex flex-col gap-3 w-full mb-2">
