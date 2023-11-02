@@ -58,17 +58,9 @@ CREATE TABLE "GroupActivityDays" (
 CREATE TABLE "Subgroup" (
     "id" SERIAL NOT NULL,
     "gadId" INTEGER NOT NULL,
+    "subgrups" JSONB NOT NULL,
 
     CONSTRAINT "Subgroup_pkey" PRIMARY KEY ("id")
-);
-
--- CreateTable
-CREATE TABLE "Pairs" (
-    "id" SERIAL NOT NULL,
-    "studentId" INTEGER NOT NULL,
-    "subgroupId" INTEGER NOT NULL,
-
-    CONSTRAINT "Pairs_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateIndex
@@ -83,6 +75,9 @@ CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
 -- CreateIndex
 CREATE UNIQUE INDEX "Days_day_key" ON "Days"("day");
 
+-- CreateIndex
+CREATE UNIQUE INDEX "GroupActivityDays_groupId_dayId_type_key" ON "GroupActivityDays"("groupId", "dayId", "type");
+
 -- AddForeignKey
 ALTER TABLE "Student" ADD CONSTRAINT "Student_groupId_fkey" FOREIGN KEY ("groupId") REFERENCES "Group"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
@@ -94,9 +89,3 @@ ALTER TABLE "GroupActivityDays" ADD CONSTRAINT "GroupActivityDays_dayId_fkey" FO
 
 -- AddForeignKey
 ALTER TABLE "Subgroup" ADD CONSTRAINT "Subgroup_gadId_fkey" FOREIGN KEY ("gadId") REFERENCES "GroupActivityDays"("id") ON DELETE CASCADE ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE "Pairs" ADD CONSTRAINT "Pairs_studentId_fkey" FOREIGN KEY ("studentId") REFERENCES "Student"("id") ON DELETE CASCADE ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE "Pairs" ADD CONSTRAINT "Pairs_subgroupId_fkey" FOREIGN KEY ("subgroupId") REFERENCES "Subgroup"("id") ON DELETE CASCADE ON UPDATE CASCADE;
