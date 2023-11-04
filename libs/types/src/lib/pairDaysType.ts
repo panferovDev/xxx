@@ -75,3 +75,23 @@ export type SubgroupRefreshType = {
   groupId: number;
   weekDay: string;
 };
+
+export type YourPairsType = {
+  week: string;
+  days: {
+    subgroup: {
+      id: number;
+      students: {
+        name: string;
+        id: number;
+        repeat: boolean;
+        groupId: number;
+      }[];
+    }[];
+    day: string;
+    id: number;
+    groupId: number;
+    dayId: number;
+    type: string;
+  }[];
+};

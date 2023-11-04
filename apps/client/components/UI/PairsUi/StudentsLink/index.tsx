@@ -10,7 +10,7 @@ export default function StudentLink(): JSX.Element | null {
   return (
     <div className='flex flex-row w-full mb-5  justify-center'>
       <span className="text-lg ml-3">Ссылка на расписание для студентов:</span>
-      <Link className="text-lg ml-3 underline" href={`/pairdays/${id}`}>
+      <Link className="text-lg ml-3 underline" href={`/yourpairs/${id}`}>
         click
       </Link>
     </div>

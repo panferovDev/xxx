@@ -10,10 +10,10 @@ export default function PairsScheduleWrap(): JSX.Element {
     <div className="flex flex-col mb-10">
       <StudentLink />
       {schedule.map((week) => (
-        <div key={week.week} className="flex flex-col gap-3 w-full mb-2">
-          <h3 className="text-lg text-center underline font-semibold">{week.week}</h3>
+        <div key={week.week} className="flex flex-col gap-1 w-full mb-2">
+          <h3 className=" text-center uppercase underline font-semibold">{week.week}</h3>
           {week.days.map((day) => (
-            <PairWeekDay key={day.id} dayGroups={day} week={week.week}/>
+            <PairWeekDay key={day.id} dayGroups={day} week={week.week} />
           ))}
         </div>
       ))}
