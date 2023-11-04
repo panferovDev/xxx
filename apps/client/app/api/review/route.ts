@@ -2,7 +2,7 @@ import { prisma } from '@xxx/prism';
 import type { ReviewSubmitType } from '@xxx/types/studentsGroup';
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
-import { requireSession, tableDistribution } from '../../../utils';
+import { arrShuffle, requireSession, tableDistribution } from '../../../utils';
 
 export async function POST(request: NextRequest): Promise<NextResponse> {
   const session = await requireSession();
@@ -15,10 +15,11 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
 
   if (!students) return NextResponse.json({ messge: 'group not found' }, { status: 500 });
   const result = [];
+  const shuffledStudents = arrShuffle(students);
   const studentsPerDay = Math.ceil(students.length / days.length);
   let num = 0;
-  while (students.length > 0) {
-    const studentsPart = students.splice(0, studentsPerDay);
+  while (shuffledStudents.length > 0) {
+    const studentsPart = shuffledStudents.splice(0, studentsPerDay);
     result.push(tableDistribution(studentsPart, teachers, days[num]));
     num += 1;
   }

@@ -4,6 +4,9 @@
   "dependencies": {
     "tslib": "^2.3.0"
   },
+  "prisma": {
+    "seed": "ts-node prisma/seed.ts"
+  },
   "type": "commonjs",
   "main": "./src/index.js",
   "typings": "./src/index.d.ts"

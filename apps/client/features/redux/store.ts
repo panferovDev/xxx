@@ -5,6 +5,7 @@ import type { GroupType } from '@xxx/types/studentsGroup';
 import studentReducer from './slices/studentSlice';
 import reviewReducer from './slices/reviewSlice';
 import groupReducer from './slices/groupsSlice';
+import pairDaysSlice from './slices/pairDaysSlice';
 
 export type State = {
   groups: GroupType[];
@@ -14,15 +15,12 @@ const reducer = {
   students: studentReducer,
   groups: groupReducer,
   review: reviewReducer,
+  pairDays: pairDaysSlice,
 };
 
 const store = ({ groups }: { groups: GroupType[] }) =>
   configureStore({
-    reducer: {
-      students: studentReducer,
-      groups: groupReducer,
-      review: reviewReducer,
-    },
+    reducer,
     preloadedState: {
       groups,
     },

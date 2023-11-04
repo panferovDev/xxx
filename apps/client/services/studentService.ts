@@ -44,3 +44,9 @@ export const changeGroupService = (move: {
     .put<StudentType>(`/students/${move.student.id}`, move)
     .then(({ data }) => data)
     .catch((err) => Promise.reject(err));
+
+export const repeatStudentService = (studentData: DeleteStudentType): Promise<DeleteStudentType> =>
+  apiService
+    .patch<DeleteStudentType>(`/students/${studentData.sId}/repeat`)
+    .then(() => studentData)
+    .catch((err) => Promise.reject(err));

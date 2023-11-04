@@ -1,8 +1,12 @@
 import { prisma } from '@xxx/prism';
 import type { groupAndStydentsFormType } from '@xxx/types/studentsGroup';
 import { NextResponse } from 'next/server';
+import { requireSession } from '../../../utils';
 
 export async function POST(request: Request): Promise<Response> {
+  const session = await requireSession();
+  if (!session) return NextResponse.json({ messge: 'not authorized' }, { status: 401 });
+
   const data = (await request.json()) as groupAndStydentsFormType;
   const { gId, students } = data;
 

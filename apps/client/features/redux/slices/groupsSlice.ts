@@ -7,6 +7,7 @@ import {
   changeGroupThunk,
   deleteGroupThunk,
   deleteStudentThunk,
+  repeatStudentThunk,
   updateNameStudentThunk,
 } from '../actions/groupActions';
 
@@ -34,7 +35,8 @@ const groupsSlice = createSlice({
       }
     });
     builder.addCase(deleteGroupThunk.fulfilled, (state, action) =>
-      state.filter((group) => group.id !== action.payload));
+      state.filter((group) => group.id !== action.payload),
+    );
 
     builder.addCase(deleteStudentThunk.fulfilled, (state, action) => {
       const group = state.find((el) => el.id === action.payload.gId);
@@ -65,6 +67,16 @@ const groupsSlice = createSlice({
           1,
         );
         groupTo.students.push(action.payload.student);
+      }
+    });
+
+    builder.addCase(repeatStudentThunk.fulfilled, (state, action) => {
+      const group = state.find((el) => el.id === action.payload.gId);
+      if (group) {
+        const student = group.students.find((el) => el.id === action.payload.sId);
+        if (student) {
+          student.repeat = !student.repeat;
+        }
       }
     });
   },

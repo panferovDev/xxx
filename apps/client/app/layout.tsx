@@ -1,4 +1,5 @@
 import { Roboto } from 'next/font/google';
+import Toaster from '@xxx/ui-components/Toaster';
 import { ThemeProvider } from '../components/themeProvider/theme-provider';
 import './global.css';
 import { Providers } from '../components/Providers';
@@ -32,6 +33,7 @@ export default async function RootLayout({
             </div>
           </ThemeProvider>
         </Providers>
+        <Toaster />
       </body>
     </html>
   );

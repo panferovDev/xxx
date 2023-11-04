@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
 import { motion, useDragControls, useAnimation } from 'framer-motion';
 import type { StudentType } from '@xxx/types/studentsGroup';
-import { useAppDispatch } from 'apps/client/features/redux/reduxHooks';
+import { useAppDispatch, useAppSelector } from 'apps/client/features/redux/reduxHooks';
 import { changeDayAction } from 'apps/client/features/redux/slices/reviewSlice';
 
 export type ReviewTableProps = {
@@ -12,6 +12,7 @@ export default function DndItem({ student }: ReviewTableProps): JSX.Element {
   const controls = useAnimation();
   const dragControls = useDragControls();
   const dispatch = useAppDispatch();
+  const showRepeat = useAppSelector((state) => state.review.showRepeat);
   const refFrom = useRef<{ dayId: string; teacherId: string } | null>(null);
 
   return (
@@ -72,7 +73,7 @@ export default function DndItem({ student }: ReviewTableProps): JSX.Element {
       dragControls={dragControls}
       animate={controls}
       layout
-      className="hover:cursor-grab hover:rounded rounded"
+      className={`hover:cursor-grab hover:rounded rounded ${student.repeat && showRepeat ? 'text-red-500' : null}`}
       dragElastic={0}
       whileHover={{ backgroundColor: '#7C3AED', opacity: 0.3 }}
       whileTap={{ scale: 0.9, cursor: 'grabbing' }}

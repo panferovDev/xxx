@@ -6,6 +6,7 @@ import type { Session } from 'next-auth';
 import { signOut } from 'next-auth/react';
 import Navigation from './Navigation';
 import Theme from '../theme';
+import MobileMenu from './MobileMenu';
 
 export default function NavBar({ session }: { session: Session | null }): JSX.Element {
   const logoutHandler = (): void => {
@@ -14,29 +15,28 @@ export default function NavBar({ session }: { session: Session | null }): JSX.El
     });
   };
   return (
-    <nav className="">
+    <nav>
       <div className="max-w-screen-2xl flex flex-wrap items-center justify-between py-4">
         <span className="self-start text-2xl text-violet-600 font-semibold whitespace-nowrap">
           ElbrusHelper
         </span>
-        <button
-          data-collapse-toggle="navbar-default"
-          type="button"
-          className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400  dark:focus:ring-gray-600"
-          aria-controls="navbar-default"
-          aria-expanded="false"
+        <div className="custom:hidden">
+          <MobileMenu />
+        </div>
+        <div
+          className="hidden flex-1 custom:flex custom:justify-end gap-1 custom:items-center  w-full custom:w-auto"
+          id="navbar-default"
         >
-          <span className="sr-only">Open main menu</span>
-        </button>
-        {session && <Navigation />}
-        <div className="md:flex md:justify-between md:items-center  w-full md:w-auto" id="navbar-default">
           {session && (
             <>
-              <span className="mr-2">Привет, {session.user?.name} </span>
-              <Theme />
-              <Button onClick={logoutHandler} variant="outline">
-                Logout
-              </Button>
+              <Navigation />
+              <div className="flex justify-center items-center gap-1">
+                <span className="mr-2">Привет, {session.user?.name} </span>
+                <Theme />
+                <Button onClick={logoutHandler} variant="outline">
+                  Logout
+                </Button>
+              </div>
             </>
           )}
         </div>

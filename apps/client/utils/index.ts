@@ -83,3 +83,95 @@ export const requireSession = async (): Promise<Session | null> => {
   }
   return session;
 };
+
+export function getCurrentWeekDates(
+  weekOffset = 0,
+  data: { [id: number]: string },
+  groupid: number,
+): { dayId: number; date: Date; groupId: number; type: string }[] {
+  const today = new Date();
+  const day = today.getDay();
+  const diff = today.getDate() - day + (day === 0 ? -6 : 1) + 7 * weekOffset;
+
+  const weekDates = [];
+
+  for (let i = 0; i < 5; i += 1) {
+    const date = new Date(today);
+    date.setDate(diff + i);
+    if (data[i + 1]) {
+      weekDates.push({
+        dayId: i + 1,
+        groupId: groupid,
+        date: new Date(date.toLocaleDateString('ru-Ru').split('.').reverse().join('-')),
+        type: data[i + 1],
+      });
+    }
+  }
+
+  return weekDates;
+}
+
+export const getPairsDays = (inputDate: string, dayNums: number[]): Date[] => {
+  const date = new Date(inputDate);
+  const result = [];
+  const dayOfWeek = date.getUTCDay();
+  const offset = dayOfWeek === 0 ? -6 : 1 - dayOfWeek;
+  date.setDate(date.getDate() + offset);
+
+  while (result.length < 15) {
+    if (date.getUTCDay() !== 0 && date.getUTCDay() !== 6) {
+      result.push(new Date(date));
+    }
+    date.setDate(date.getDate() + 1);
+  }
+
+  return result.filter((day) => dayNums.includes(day.getDay()));
+};
+
+export const generateSubgroups = (
+  groupActivityDays: { type: string; id: number },
+  students: StudentType[],
+): {
+  gadId: number;
+  subgrups: {
+    id: string;
+    students: StudentType[];
+  }[];
+} => {
+  const shuffledStudents = arrShuffle(students);
+  let studentsPerSubgroup = 0;
+
+  switch (groupActivityDays.type) {
+    case 'пары':
+      studentsPerSubgroup = 2;
+      break;
+    case 'групповой':
+      studentsPerSubgroup = 4;
+      break;
+    default:
+      throw new Error(`Unknown group activity type: ${groupActivityDays.type}`);
+  }
+
+  const splitIntoSubgroups = (array: StudentType[], size: number): StudentType[][] => {
+    const result: StudentType[][] = [];
+    const k = Math.ceil(array.length / size);
+
+    for (let i = 0; i < k; i += 1) {
+      result.push([]);
+    }
+    for (let i = 0; i < array.length; i += 1) {
+      result[i % k].push(array[i]);
+    }
+    return result;
+  };
+
+  const studentSubgroups = splitIntoSubgroups(shuffledStudents, studentsPerSubgroup);
+
+  return {
+    gadId: groupActivityDays.id,
+    subgrups: studentSubgroups.map((subgroup) => ({
+      id: uuidv4(),
+      students: subgroup,
+    })),
+  };
+};

@@ -5,6 +5,7 @@ import type { ReviewSliceType, StudentType } from '@xxx/types/studentsGroup';
 import { submitReviewAction } from '../actions/reviewActions';
 
 const initialState: ReviewSliceType = {
+  showRepeat: true,
   teachers: [],
   days: [],
   group: null,
@@ -15,6 +16,9 @@ const reviewSlice = createSlice({
   name: 'review',
   initialState,
   reducers: {
+    setSowRepeatAction(state) {
+      state.showRepeat = !state.showRepeat;
+    },
     setTeacherAction(state, action: PayloadAction<string>) {
       state.teachers.push({
         id: uuidv4(),
@@ -23,6 +27,16 @@ const reviewSlice = createSlice({
     },
     setDaysAction(state, action: PayloadAction<string[]>) {
       state.days = action.payload;
+    },
+
+    clearReviewAction() {
+      return {
+        showRepeat: true,
+        teachers: [],
+        days: [],
+        group: null,
+        reviews: [],
+      };
     },
 
     deleteTeacherAction(state, action: PayloadAction<string>) {
@@ -92,5 +106,11 @@ const reviewSlice = createSlice({
 
 export default reviewSlice.reducer;
 export const {
-  setTeacherAction, deleteTeacherAction, setDaysAction, setGroup, changeDayAction,
+  setTeacherAction,
+  deleteTeacherAction,
+  setDaysAction,
+  setGroup,
+  changeDayAction,
+  clearReviewAction,
+  setSowRepeatAction,
 } = reviewSlice.actions;

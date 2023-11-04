@@ -13,6 +13,8 @@ model Group {
   id Int @id @default(autoincrement())
   name String @unique
   students Student[]
+  groupActivityDays GroupActivityDays[]
+
 }
 
 model Student {
@@ -20,6 +22,7 @@ model Student {
   name String
   groupId Int 
   group Group @relation(fields: [groupId], references: [id], onDelete: Cascade)
+  repeat Boolean @default(false)
   @@unique([name, groupId])
 }
 
@@ -28,4 +31,39 @@ model User {
   name String
   email String @unique
   avatar String?
+}
+
+model PairDays {
+  id Int @id @default(autoincrement())
+  dayName String
+  dayType String
+  dayNumber Int
+}
+
+
+model Days {
+  id Int @id @default(autoincrement())
+  day DateTime
+  groupActivityDays GroupActivityDays[]
+  @@unique([day])
+}
+
+
+model GroupActivityDays {
+  id Int @id @default(autoincrement())
+  groupId Int
+  group Group @relation(fields: [groupId], references: [id], onDelete: Cascade)
+  dayId Int
+  day Days @relation(fields: [dayId], references: [id], onDelete: Cascade)
+  type String
+  subgroup Subgroup[]
+  @@unique([groupId, dayId, type])
+}
+
+
+model Subgroup {
+  id Int @id @default(autoincrement())
+  gadId Int
+  groupActivityDays GroupActivityDays @relation(fields: [gadId], references: [id], onDelete: Cascade)
+  subgrups Json
 }

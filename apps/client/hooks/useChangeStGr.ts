@@ -5,31 +5,63 @@ import type {
 } from '@xxx/types/studentsGroup';
 import type React from 'react';
 import { useCallback } from 'react';
+import { useToast } from '@xxx/ui-components/Use-toast';
 import { useAppDispatch } from '../features/redux/reduxHooks';
-import { changeGroupThunk, deleteStudentThunk, updateNameStudentThunk } from '../features/redux/actions/groupActions';
+import {
+  changeGroupThunk,
+  deleteStudentThunk,
+  repeatStudentThunk,
+  updateNameStudentThunk,
+} from '../features/redux/actions/groupActions';
 
 export default function useChangeStGr(): {
   studentSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
   studentClickSubmit: (formRef: React.RefObject<HTMLFormElement>) => void;
   studentDeleteHandler: (delData: DeleteStudentType) => void;
   movedStudentHandler: (data: Omit<MovedStudentType, 'from'>) => void;
+  repeatStudentHandler: (data: DeleteStudentType) => void;
 } {
   const dispatch = useAppDispatch();
+  const { toast } = useToast();
   const studentSubmit = useCallback(
     (e: React.FormEvent<HTMLFormElement>): void => {
       e.preventDefault();
       const data = Object.fromEntries(new FormData(e.currentTarget)) as UpdateStudentType;
 
       if (!data.gId || !data.updName) return;
-      void dispatch(updateNameStudentThunk(data));
+      dispatch(updateNameStudentThunk(data))
+        .then(() => {
+          toast({
+            description: 'Имя студента изменено',
+            duration: 2000,
+          });
+        })
+        .catch(() => {
+          toast({
+            description: 'Ошибка изменения',
+            duration: 2000,
+          });
+        });
     },
-    [dispatch],
+    [dispatch, toast],
   );
   const studentClickSubmit = useCallback(
     (formRef: React.RefObject<HTMLFormElement>): void => {
       if (formRef.current) {
         const data = Object.fromEntries(new FormData(formRef.current)) as UpdateStudentType;
-        void dispatch(updateNameStudentThunk(data));
+        dispatch(updateNameStudentThunk(data))
+          .then(() => {
+            toast({
+              description: 'Имя студента изменено',
+              duration: 2000,
+            });
+          })
+          .catch(() => {
+            toast({
+              description: 'Ошибка изменения',
+              duration: 2000,
+            });
+          });
       }
     },
     [dispatch],
@@ -37,7 +69,19 @@ export default function useChangeStGr(): {
 
   const studentDeleteHandler = useCallback(
     (delData: DeleteStudentType): void => {
-      void dispatch(deleteStudentThunk(delData));
+      dispatch(deleteStudentThunk(delData))
+        .then(() => {
+          toast({
+            description: 'Студент удален',
+            duration: 2000,
+          });
+        })
+        .catch(() => {
+          toast({
+            description: 'Ошибка удаления',
+            duration: 2000,
+          });
+        });
     },
     [dispatch],
   );
@@ -49,5 +93,19 @@ export default function useChangeStGr(): {
     [dispatch],
   );
 
-  return { studentSubmit, studentClickSubmit, studentDeleteHandler, movedStudentHandler };
+  const repeatStudentHandler = useCallback(
+    (data: DeleteStudentType): void => {
+      console.log('repeatStudentHandler');
+      void dispatch(repeatStudentThunk(data));
+    },
+    [dispatch],
+  );
+
+  return {
+    studentSubmit,
+    studentClickSubmit,
+    studentDeleteHandler,
+    movedStudentHandler,
+    repeatStudentHandler,
+  };
 }

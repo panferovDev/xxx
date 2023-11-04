@@ -16,8 +16,8 @@ export default function AddGroup(): JSX.Element {
       </CardHeader>
       <CardContent>
         <form onSubmit={submitHandler}>
-          <div className="flex">
-            <Input name="group" className="block" type="text" placeholder="add group" />
+          <div className="flex flex-row gap-3">
+            <Input name="group" className="block w-full" type="text" placeholder="add group" />
             <Button className="ml-3" type="submit">
               submit
             </Button>
