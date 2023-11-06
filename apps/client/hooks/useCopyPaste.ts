@@ -25,6 +25,7 @@ export default function useCopyPaste(): {
         duration: 2000,
       });
     } catch (err) {
+      console.log(err);
       toast({
         description: 'Ошибка копирования',
         duration: 2000,
