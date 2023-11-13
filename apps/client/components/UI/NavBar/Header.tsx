@@ -6,7 +6,7 @@ export default async function Header(): Promise<JSX.Element> {
   const session = await useServerSession();
   return (
     <header>
-      <NavBar session={session} />
+      {session ? <NavBar session={session} /> : <span className="text-center mt-3 text-lg uppercase">ElbrusHelper</span>}
     </header>
   );
 }

@@ -24,7 +24,7 @@ const store = ({ groups }: { groups: GroupType[] }) =>
     preloadedState: {
       groups,
     },
-    devTools: process.env.NODE_ENV !== 'production',
+    // devTools: process.env.NODE_ENV !== 'production',
   });
 
 type Store = ReturnType<typeof store>;

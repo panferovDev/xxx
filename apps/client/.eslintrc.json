@@ -24,6 +24,8 @@
       ],
       "plugins": ["react", "@typescript-eslint", "react-hooks"],
       "rules": {
+        "jsx-a11y/click-events-have-key-events": "off",
+        "jsx-a11y/no-static-element-interactions": "off",
         "no-restricted-syntax": "off",
         "implicit-arrow-linebreak": "off",
         "no-param-reassign": "off",

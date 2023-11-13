@@ -1,4 +1,5 @@
 import React from 'react';
+import YourPairsAnchor from '../UI/yourpairsAnchor';
 import { yourPairs } from '../../utils/yourPairs';
 
 type Props = {
@@ -9,16 +10,15 @@ export default async function YoursPairsWithIdPage({ id }: Props): Promise<JSX.E
   const pairs = await yourPairs(+id);
 
   return (
-    <div className="flex min-w-full flex-col">
+    <div className="flex  min-w-full flex-col">
       {!pairs ? (
         <span className="text-center text-2xl">Пары не найдены</span>
       ) : (
-        <div className="grid grid-rows-1 md:grid-rows-3">
+        <div className="grid z-10 grid-rows-1 md:grid-rows-3">
+          <YourPairsAnchor />
           {pairs.map((pair) => (
-            <div key={pair.week} className="flex flex-col w-full">
-              <span key={pair.week} className="text-center uppercase mb-3">
-                {pair.week}
-              </span>
+            <div key={pair.week} className="flex flex-col  w-full">
+              <span id={`${pair.week}`} className="text-center uppercase mb-3">{pair.week}</span>
               {pair.days.map((day) => (
                 <div
                   key={day.dayId}
