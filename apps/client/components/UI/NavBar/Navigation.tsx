@@ -36,6 +36,12 @@ export default function Navigation({
       >
         pairs
       </Link>
+      <Link
+        href="/retro"
+        className={pathname === '/retro' ? 'active' : 'uppercase '}
+      >
+        retro
+      </Link>
     </nav>
   );
 }
